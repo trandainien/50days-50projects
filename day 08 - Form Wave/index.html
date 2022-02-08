@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Wave</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    .layer {
+      position: absolute;
+      background-color: linear-gradient(0, 0, 0, 0.7);
+      height: 100vh;
+      top: 0;
+      left: 0;
+      background-color: hsl(208, 54%, 59%);
+      width: 100%;
+      z-index: -1;
+    }
+    .container {
+      width: 30%;
+      padding: 2em;
+      color: #fff;
+      background-color: hsl(208, 45%, 32%);
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 4px 4px 8px 2px #000;
+    }
+    h1 {
+      text-align: center;
+      font-weight: 700;
+    }
+    input {
+      background-color: transparent;
+      border: 1px solid #fff;
+      width: 100%;
+      padding: 1em 0 0.5em;
+      margin-bottom: 2em;
+      border: none;
+      border-bottom: 1px solid #fff;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    input:focus {
+      outline: none;
+    }
+    .button {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1.5em;
+    }
+    .button button {
+      text-decoration: none;
+      text-align: center;
+      color: #fff;
+      width: 100%;
+      padding: 0.6em 0;
+      border-radius: 20px;
+      font-size: 1rem;
+      background-color: hsl(208, 45%, 58%);
+      border: none;
+
+      margin: 0 auto;
+    }
+    .footer {
+      display: flex;
+    }
+    .text {
+      position: absolute;
+    }
+    a {
+      text-decoration: none;
+      color: hsl(208, 100%, 74%);
+      margin-left: 0.2em;
+    }
+
+    span {
+      position: relative;
+      /* bottom: 30px; */
+      bottom: 0;
+      font-size: 1.2rem;
+      transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) bottom;
+      transition-delay: 0;
+    }
+
+    .email {
+      top: 100px;
+    }
+
+    .password {
+      top: 195px;
+    }
+    .fly {
+      bottom: 30px;
+    }
+
+    @media screen and (max-width: 960px) {
+      * {
+        font-size: 16px;
+      }
+      .container {
+        width: 60%;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      * {
+        font-size: 16px;
+      }
+      .container {
+        width: 80%;
+      }
+    }
+  </style>
+  <body>
+    <div class="layer"></div>
+    <div class="container">
+      <h1>Please Login</h1>
+      <div class="section">
+        <label for="email" class="text email">
+          <span>E</span><span>m</span><span>a</span><span>i</span><span>l</span>
+        </label>
+        <input type="email" autocomplete="nope" />
+      </div>
+      <div class="section">
+        <label for="Password" class="text password" value="">
+          <span>P</span><span>a</span><span>s</span><span>s</span><span>w</span
+          ><span>o</span><span>r</span><span>d</span>
+        </label>
+        <input type="Password" autocomplete="nope" />
+      </div>
+      <div class="button">
+        <button>Login</button>
+      </div>
+
+      <div class="footer">
+        <p>Don't have an account?</p>
+        <a href="#">Register</a>
+      </div>
+    </div>
+
+    <script>
+      input = document.querySelectorAll("input");
+      email = document.querySelector(".email");
+      password = document.querySelector(".password");
+      email_characters = document.querySelectorAll(".email span");
+      password_characters = document.querySelectorAll(".password span");
+
+      for (let i = 0; i < 2; i++) {
+        let tmp;
+        input[i].addEventListener("focusin", () => {
+          let delayTime = 0;
+
+          if (i == 0) tmp = email_characters;
+          else tmp = password_characters;
+          tmp.forEach((character) => {
+            character.classList.add(
+              "fly",
+              !character.classList.contains("fly")
+            );
+            character.style.transitionDelay = delayTime + "s";
+            delayTime += 0.05;
+          });
+        });
+
+        input[i].addEventListener("focusout", () => {
+          tmp.forEach((character) => {
+            if (input[i].value == "")
+              character.classList.remove(
+                "fly",
+                character.classList.contains("fly")
+              );
+          });
+        });
+      }
+
+      //   input[0].addEventListener("focusout", () => {
+      //     if (input[0].value == "") email.classList.toggle("fly");
+      //   });
+      //   input[1].addEventListener("focusin", () => {
+      //     password.classList.add("fly", !input[1].classList.contains("fly"));
+      //   });
+      //   input[1].addEventListener("focusout", () => {
+      //     if (input[1].value === "") password.classList.toggle("fly");
+      //   });
+    </script>
+  </body>
+</html>
