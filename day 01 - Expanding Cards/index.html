@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>project00</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        margin: 0;
+      }
+      .container {
+        box-sizing: border-box;
+        /* display: grid;
+        grid-template-columns: 6fr repeat(5, 1fr); */
+        display: flex;
+
+        padding: 2em;
+
+        height: 100vh;
+      }
+
+      .image {
+        margin: 0 0.5em;
+        width: 100%;
+        overflow: hidden;
+        object-fit: contain;
+        background-position: center center;
+        border-radius: 70px;
+        flex: 1;
+        transition: 1s ease flex;
+      }
+
+      .big {
+        display: flex;
+        flex: 6;
+      }
+
+      img {
+      }
+
+      /* .big {
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="image big">
+        <img
+          src="https://images.unsplash.com/photo-1558979158-65a1eaa08691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+          alt=""
+        />
+      </div>
+      <div class="image small">
+        <img
+          src="https://images.unsplash.com/photo-1572276596237-5db2c3e16c5d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'"
+          alt=""
+        />
+      </div>
+      <div class="image">
+        <img
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80"
+          alt=""
+        />
+      </div>
+
+      <div class="image">
+        <img
+          src="https://images.unsplash.com/photo-1551009175-8a68da93d5f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
+          alt=""
+        />
+      </div>
+      <div class="image">
+        <img
+          src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+          alt=""
+        />
+      </div>
+    </div>
+    <script>
+      const imgs = document.querySelectorAll(".image");
+      imgs.forEach((img) => {
+        img.addEventListener("click", function () {
+          imgs.forEach((img) => {
+            img.classList.remove("big");
+          });
+          this.classList.toggle("big");
+        });
+      });
+    </script>
+  </body>
+</html>

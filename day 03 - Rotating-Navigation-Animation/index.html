@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rotating Navigation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        background-color: gray;
+      }
+
+      .container {
+        width: 100%;
+        padding: 8em;
+        height: 300vh;
+        transform-origin: 0 0;
+        /* transform: rotate(-45deg); */
+        transition: ease 0.8s;
+        background: #fff;
+        z-index: 1;
+      }
+
+      .container.rotateForward {
+        transform: rotate(-45deg);
+      }
+      img {
+        width: 100%;
+        margin: 1em 0;
+      }
+      h3 {
+        font-weight: 400;
+        font-style: italic;
+        position: relative;
+        top: -13px;
+      }
+
+      p {
+        margin-bottom: 1em;
+      }
+      .fa-bars,
+      .fa-times {
+        position: absolute;
+        font-size: 3em;
+        position: absolute;
+        top: 100px;
+        left: 100px;
+        margin: 0.8em;
+        color: #fff;
+        cursor: pointer;
+      }
+      .fa-bars {
+        position: absolute;
+        top: 130px;
+        left: 65px;
+        transform: rotate(45deg);
+      }
+
+      .fa-times {
+        position: absolute;
+        top: 65px;
+        left: 0px;
+        transform: rotate(45deg);
+      }
+
+      .circle {
+        position: fixed;
+        height: 15em;
+        width: 15em;
+        border-radius: 50%;
+        background: orange;
+        top: -100px;
+        left: -100px;
+        z-index: 1000;
+        transform: rotate(-45deg);
+        transition: 0.8s ease;
+      }
+      .circle.rotateForward {
+        transform: rotate(-130deg);
+      }
+
+      .menu {
+        position: absolute;
+        bottom: 30px;
+        left: 40px;
+        z-index: -1;
+        width: 100px;
+        margin-bottom: 3em;
+      }
+      .link {
+        display: flex;
+        color: #fff;
+        font-weight: 700;
+      }
+      a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 2rem;
+      }
+      .fa-home,
+      .fa-address-card,
+      .fa-envelope {
+        display: block;
+
+        font-size: 2rem;
+        margin-right: 1em;
+      }
+      /* .fa-home {
+        margin-bottom: 3em;
+      } */
+      .link {
+        position: absolute;
+        transition: 0.6s ease;
+      }
+      .link:nth-child(1) {
+        bottom: 200px;
+        left: -300px;
+      }
+      .link:nth-child(2) {
+        bottom: 100px;
+        left: -300px;
+      }
+      .link:nth-child(3) {
+        bottom: 80px;
+        left: -300px;
+      }
+      .link.active {
+        left: 20px;
+      }
+
+      .fa-address-card {
+        margin-left: 1em;
+      }
+      .fa-envelope {
+        margin-left: 2em;
+      }
+      .fa-address-card,
+      .fa-home {
+        margin-bottom: 3em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="circle">
+      <div class="bar"><i class="fas fa-bars"></i></div>
+      <div class="cross"><i class="fas fa-times"></i></div>
+    </div>
+
+    <div class="container1">
+      <div class="menu">
+        <div class="link">
+          <i class="fas fa-home"></i>
+          <a href="#">Home</a>
+        </div>
+        <div class="link">
+          <i class="fas fa-address-card"></i>
+          <a href="#">About</a>
+        </div>
+        <div class="link">
+          <i class="fas fa-envelope"></i>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h1>Amazing Article</h1>
+      <h3>Florin Pop</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
+        quia in ratione dolores cupiditate, maxime aliquid impedit dolorem nam
+        dolor omnis atque fuga labore modi veritatis porro laborum minus, illo,
+        maiores recusandae cumque ipsa quos. Tenetur, consequuntur mollitia
+        labore pariatur sunt quia harum aut. Eum maxime dolorem provident natus
+        veritatis molestiae cumque quod voluptates ab non, tempore cupiditate?
+        Voluptatem, molestias culpa. Corrupti, laudantium iure aliquam rerum
+        sint nam quas dolor dignissimos in error placeat quae temporibus minus
+        optio eum soluta cupiditate! Cupiditate saepe voluptates laudantium.
+        Ducimus consequuntur perferendis consequatur nobis exercitationem
+        molestias fugiat commodi omnis. Asperiores quia tenetur nemo ipsa.
+      </p>
+      <h2>My Dog</h2>
+      <img
+        src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80"
+        alt=""
+      />
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat,
+        voluptatum assumenda nemo vitae cumque veniam eum doloribus dolore
+        accusamus dicta perspiciatis beatae fugit explicabo iusto quia, est,
+        alias fuga corporis saepe velit iure! Accusamus veniam excepturi
+        corrupti ratione mollitia sint.
+      </p>
+    </div>
+
+    <script>
+      const bar = document.querySelector(".fa-bars");
+      const cross = document.querySelector(".fa-times");
+      const circle = document.querySelector(".circle");
+      const container = document.querySelector(".container");
+      const links = document.querySelectorAll(".link");
+      bar.addEventListener("click", () => {
+        if (circle.classList.contains("rotateForward"))
+          circle.classList.remove("rotateForward");
+
+        circle.classList.add("rotateForward");
+        container.classList.add("rotateForward");
+        links.forEach((link) => {
+          link.classList.add("active");
+        });
+      });
+      cross.addEventListener("click", () => {
+        if (circle.classList.contains("rotateForward"))
+          circle.classList.remove("rotateForward");
+        if (container.classList.contains("rotateForward"))
+          container.classList.remove("rotateForward");
+        links.forEach((link) => {
+          link.classList.remove("active");
+        });
+      });
+    </script>
+  </body>
+</html>

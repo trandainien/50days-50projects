@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blurry Loading</title>
+    <style>
+      * {
+        margin: 0;
+      }
+      .container {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .img {
+        background: url("./daniel-tong-dxYdPSuBr-U-unsplash.jpg") no-repeat
+          center center;
+        width: 100%;
+        height: 100%;
+      }
+
+      button {
+        position: absolute;
+        z-index: 100;
+      }
+      span {
+        position: absolute;
+        z-index: 1;
+        color: #fff;
+        font-size: 4em;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <button class="btn">click</button> -->
+    <div class="container">
+      <span></span>
+      <div class="img"></div>
+    </div>
+    <script>
+      // const btn = document.querySelector(".btn");
+      const img = document.querySelector(".img");
+      // btn.addEventListener("click", () => {
+      //   img.classList.toggle("appear");
+      // });
+      let count = 0;
+
+      const span = document.querySelector("span");
+
+      window.onload = () => {
+        let timer = setInterval(() => {
+          span.innerText = count + "%";
+          count++;
+          if (count > 100) {
+            clearInterval(timer);
+          }
+          img.style.filter = `blur(${scale(count, 0, 100, 100, 0)}px)`;
+          span.style.opacity = `${scale(count, 0, 100, 1, 0)}`;
+        }, 30);
+      };
+
+      function scale(number, inMin, inMax, outMin, outMax) {
+        return (
+          ((number - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
+        );
+      }
+    </script>
+  </body>
+</html>

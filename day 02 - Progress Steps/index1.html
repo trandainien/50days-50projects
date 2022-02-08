@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Progress Bar(1)</title>
+    <style>
+      :root {
+        --line-border-fill: aqua;
+        --line-border-empty: #eee;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .circles {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0;
+
+        width: 350px;
+
+        margin: 0 auto;
+      }
+      .circle {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        height: 2em;
+        width: 2em;
+
+        background: white;
+        z-index: 0;
+        border: 0.2em solid var(--line-border-empty);
+
+        border-radius: 50%;
+        font-size: 1rem;
+        padding-bottom: 0.25em;
+        transition: 1s ease;
+      }
+      .circle.active {
+        border-color: var(--line-border-fill);
+      }
+      /* .circle::after {
+        content: "";
+
+        position: absolute;
+
+        height: 1.6em;
+        width: 1.6em;
+        top: -3px;
+        background: transparent;
+        z-index: 1;
+        opacity: 0;
+        border: 0.2em solid aqua;
+        transition: 1s ease opacity;
+        border-radius: 50%;
+      }
+
+      .circle.active::after {
+        content: "";
+
+        position: absolute;
+
+        height: 1.6em;
+        width: 1.6em;
+        top: -3px;
+        background: transparent;
+        z-index: 1;
+        opacity: 1;
+        border: 0.2em solid aqua;
+
+        border-radius: 50%;
+      } */
+
+      .progress-bar::after {
+        content: "";
+        background-color: aqua;
+        position: absolute;
+        width: 0%;
+        z-index: 1;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 0.2em;
+        transition: 1s ease width;
+      }
+
+      .progress-bar.first::after {
+        width: 30%;
+      }
+
+      .progress-bar.second::after {
+        width: 60%;
+      }
+      .progress-bar.third::after {
+        width: 100%;
+      }
+
+      .progress-bar {
+        background: #eee;
+        position: absolute;
+        width: 100%;
+
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 0.2em;
+      }
+
+      .btns {
+        margin: 3em 0 0;
+        display: flex;
+        flex-direction: row;
+      }
+      button {
+        margin: 0 2em;
+        padding: 0.5em 1em 0.4em;
+        border-radius: 99px;
+        border: none;
+        outline: none;
+        color: #fff;
+        cursor: not-allowed;
+      }
+
+      /* .circle.active {
+        border: 0.2em solid aqua;
+      } */
+      button.active {
+        background: aqua;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="circles">
+        <div class="progress-bar"></div>
+        <div class="circle active">1</div>
+        <div class="circle">2</div>
+        <div class="circle">3</div>
+        <div class="circle">4</div>
+      </div>
+      <div class="btns">
+        <button class="disabled">Prev</button>
+        <button class="active">Next</button>
+      </div>
+    </div>
+
+    <script>
+      let state = 0;
+      const btns = document.querySelectorAll("button");
+      const b1 = btns[0].classList;
+      const b2 = btns[1].classList;
+      const circles = document.querySelectorAll(".circle");
+      const bar = document.querySelector(".progress-bar").classList;
+
+      const deleteClasses = () => {
+        if (bar.contains("first")) bar.remove("first");
+        if (bar.contains("second")) bar.remove("second");
+        if (bar.contains("third")) bar.remove("third");
+        if (b1.contains("disabled")) b1.remove("disabled");
+        if (b2.contains("disabled")) b2.remove("disabled");
+      };
+      btns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn.innerText === "Next") {
+            state++;
+            if (state < 0 || state > 3) {
+              state = 3;
+              return 0;
+            }
+            deleteClasses();
+            if (state === 3) {
+              if (b2.contains("active")) {
+                b2.remove("active");
+              }
+              b2.add("disabled");
+            } else {
+              if (!b1.contains("active")) b1.add("active");
+              if (!b2.contains("active")) b2.add("active");
+            }
+            circles[state].classList.add("active");
+          } else {
+            state--;
+            if (state < 0 || state > 3) {
+              state = 0;
+              return 0;
+            }
+            deleteClasses();
+            console.log(state);
+            if (state === 0) {
+              if (b1.contains("active")) {
+                b1.remove("active");
+              }
+              b1.add("disabled");
+            } else {
+              if (!b1.contains("active")) b1.add("active");
+              if (!b2.contains("active")) b2.add("active");
+            }
+            circles[state + 1].classList.remove("active");
+          }
+
+          switch (state) {
+            case 1:
+              bar.add("first");
+              break;
+            case 2:
+              bar.add("second");
+              break;
+            case 3:
+              bar.add("third");
+              break;
+            default:
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

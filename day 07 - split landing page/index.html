@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Split landing page</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        color: #fff;
+      }
+
+      .container {
+      }
+
+      .pages {
+        display: flex;
+      }
+
+      .page {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: 0.8s ease-in-out flex;
+      }
+
+      .page1 {
+        flex: 1;
+        background-image: linear-gradient(
+            rgba(4, 9, 30, 0.7),
+            rgba(4, 9, 30, 0.7)
+          ),
+          url("https://images.unsplash.com/photo-1511882150382-421056c89033?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8Z2FtZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+        background-size: cover;
+        transition: 1s ease-in-out flex, transform 1s ease-in-out 1s;
+      }
+
+      .page2 {
+        flex: 1;
+        background-image: linear-gradient(
+            rgba(4, 9, 30, 0.7),
+            rgba(4, 9, 30, 0.7)
+          ),
+          url("https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+
+        background-size: cover;
+        transition: 1s ease-in-out flex;
+      }
+      button {
+        padding: 0.8em 1.5em 0.9em;
+        border-radius: 30px;
+        font-size: 1.5rem;
+        margin-top: 2em;
+        background-color: transparent;
+        border: 2px solid #fff;
+        cursor: pointer;
+        transition: 0.5s ease-out;
+        transition-property: border-color, color;
+      }
+      button:hover {
+        border-color: orange;
+        color: orange;
+      }
+
+      .page1:hover,
+      .page2:hover {
+        flex: 2;
+      }
+      .page1:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="pages">
+        <div class="page page1">
+          <h1>Page 1</h1>
+          <button>Click here</button>
+        </div>
+        <div class="page page2">
+          <h1>Page 2</h1>
+          <button>Click here</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

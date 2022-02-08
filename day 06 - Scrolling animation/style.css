@@ -1,0 +1,64 @@
+.container {
+  padding: 2em 4em;
+}
+
+.cards {
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(300px, 350px));
+  justify-content: center;
+  gap: 3em;
+  padding: 2em;
+}
+
+.card {
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 2px 8px 8px 5px;
+  transition: 1s ease;
+  width: 100%;
+
+  /* change */
+  max-height: 400px;
+}
+
+.card:hover {
+  max-height: 700px;
+}
+
+.card .header > img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  object-position: center;
+}
+
+.body {
+  margin: 0 2em;
+}
+
+.body > h1 {
+  margin-bottom: 0;
+}
+
+.body > p {
+  margin-top: 0;
+}
+
+.card:nth-child(even).reveal {
+  position: relative;
+  transform: translateX(100vw);
+  opacity: 0;
+  transition: 1s all ease;
+}
+.card:nth-child(odd).reveal {
+  position: relative;
+  transform: translateX(-100vw);
+  opacity: 0;
+  transition: 2s all ease;
+}
+
+.card.reveal.active {
+  transform: translateX(0);
+  opacity: 1;
+}
