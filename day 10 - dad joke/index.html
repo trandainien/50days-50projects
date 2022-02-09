@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dad Jokes</title>
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+        *{
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(104,109,224);
+        }
+        .container {
+            width: 50%;
+            padding: 2em 4em;
+            border-radius: 20px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 2px 5px 20px 2px #000;
+        }
+        .header{
+            font-size: 1.2rem;
+            color: rgb(163,163,163);
+            margin-bottom: 2em;
+        }
+        .body{
+            font-size: 1.5rem;
+            margin-bottom: 2em;
+        }
+       
+        .btn{
+            padding: .5em 2em .6em;
+            color: white;
+            font-size: 1rem;
+            border-radius: 10px;
+           background-color: #9F68E0;
+            border: none;   
+            box-shadow: 0px 5px 10px 2px rgb(184, 182, 182);
+            cursor: pointer;
+        }
+        .btn:hover{
+            opacity: .8;
+        }
+    </style>
+  </head>
+  <body>
+      <div class="container">
+          <div class="header">Don't Laugh Challenge</div>
+          <div class="body">//Here goes the joke</div>
+          <div class="footer"><button class="btn"">Get Another Joke</button></div>
+      </div>
+  </body>
+</html>
+
