@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Keycodes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(225, 225, 225);
+      }
+      .container {
+        display: flex;
+      }
+
+      .box {
+        margin: 2em;
+        text-align: center;
+      }
+      .header {
+        color: rgb(83, 94, 133);
+        font-size: 0.8rem;
+      }
+      .box-info {
+        padding: 1em 2em;
+        font-weight: 700;
+
+        background-color: rgb(238, 238, 238);
+        font-size: 1.2rem;
+        border-radius: 10px;
+        box-shadow: 2px 5px 10px 2px #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box-info box-loaded">Press any key to get the keycode</div>
+    </div>
+    <script>
+      const box1 = document.querySelector("[event-key]");
+      const box2 = document.querySelector("[event-key-code]");
+      const box3 = document.querySelector("[event-code]");
+      const box = document.querySelector(".box-loaded");
+      const container = document.querySelector(".container");
+      window.addEventListener("keydown", (e) => {
+        container.innerHTML = `
+            <div class="box">
+                <div class="header">event.key</div>
+                <div class="box-info" event-key>${e.key}</div>
+            </div>
+
+            <div class="box" eventKeyCode>
+                <div class="header">event.keyCode</div>
+                <div class="box-info" event-key-code>${e.keyCode}</div>
+            </div>
+
+           <div class="box" eventCode>
+             <div class="header">event.code</div>
+             <div class="box-info" event-code>${e.code}</div>
+           </div>
+         `;
+      });
+    </script>
+  </body>
+</html>

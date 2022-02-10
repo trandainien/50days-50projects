@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Choice Picker</title>
+  </head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    * {
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Roboto", sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      background-color: #2a88f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      width: 60%;
+      flex-direction: column;
+      text-align: center;
+    }
+    .intro {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    textarea {
+      padding: 1em;
+      margin-top: 2em;
+      width: 100%;
+    }
+    .items {
+      margin-top: 2em;
+
+      display: flex;
+      gap: 1em;
+      flex-wrap: wrap;
+    }
+    .item {
+      padding: 1em;
+      margin: 0 1em 0 0;
+      border-radius: 50px;
+      color: #fff;
+      background-color: #f0932b;
+    }
+    .item.show {
+      background-color: aqua;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="intro">
+        Enter all of the choices divided by a comma (','). Press enter when
+        you're done
+      </div>
+      <textarea name="" id="" cols="30" rows="10"></textarea>
+      <div class="items"></div>
+    </div>
+    <script>
+      textarea = document.querySelector("textarea");
+      items = document.querySelector(".items");
+      let arrayText = "";
+      textarea.addEventListener("keyup", (e) => {
+        console.log(e.key);
+        if (e.key === "Enter") {
+          const boxes = document.querySelectorAll(".item");
+          const refresh = setInterval(() => {
+            const randomNumber = Math.floor(Math.random() * arrayText.length);
+            console.log(randomNumber);
+            boxes[randomNumber].classList.add("show");
+            setTimeout(() => {
+              boxes[randomNumber].classList.remove("show");
+            }, 100);
+          }, 100);
+
+          setTimeout(() => {
+            clearInterval(refresh);
+            const randomNumber = Math.floor(Math.random() * arrayText.length);
+            console.log(randomNumber);
+            boxes[randomNumber].classList.add("show");
+          }, 3000);
+          return;
+        }
+
+        arrayText = e.target.value.split(",");
+
+        items.innerHTML = "";
+        arrayText.forEach((value) => {
+          if (value === "") return;
+          const text = `<div class="item">${value}</div>`;
+          items.innerHTML += text;
+        });
+      });
+    </script>
+  </body>
+</html>

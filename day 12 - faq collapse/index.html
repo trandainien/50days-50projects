@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faq Collapse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+      }
+      .container {
+        width: 40%;
+        margin: 2em auto;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+      .box {
+        display: flex;
+        position: relative;
+        border: 2px solid rgb(0, 0, 0, 0.4);
+        padding: 1.5em;
+        border-radius: 10px;
+        margin-bottom: 1.2em;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 1em;
+        margin-bottom: 0.8em;
+      }
+      img {
+        position: absolute;
+
+        right: 20px;
+        cursor: pointer;
+      }
+      .arrow {
+        z-index: 1;
+        width: 20px;
+        height: 20px;
+      }
+      .cross {
+        display: none;
+        z-index: 0;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        background-color: #ddd;
+        border-radius: 50%;
+      }
+      .inf {
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+      .box.open {
+        background-color: #fff;
+        position: relative;
+      }
+      .box.open:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("./chat.png");
+        background-size: 80px;
+        background-position: center left;
+        background-repeat: no-repeat;
+        opacity: 0.4;
+      }
+      .box.open .inf {
+        margin-bottom: 1.5em;
+      }
+      .arrow.open {
+        display: none;
+        z-index: 0;
+      }
+      .cross.open {
+        display: block;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <h1>Frequently Asked Question</h1>
+
+        <div class="box">
+          <div class="box-text">
+            <div class="inf">Why shouldn't we trust atoms?</div>
+            <p></p>
+          </div>
+          <div class="icon">
+            <img class="arrow" src="./arrow-down-sign-to-navigate.png" alt="" />
+            <img class="cross" src="./close.png" alt="" />
+          </div>
+        </div>
+        <div class="box">
+          <div class="box-text">
+            <div class="inf">
+              What do you call someone with no body and no nose?
+            </div>
+            <p></p>
+          </div>
+          <div class="icon">
+            <img class="arrow" src="./arrow-down-sign-to-navigate.png" alt="" />
+            <img class="cross" src="./close.png" alt="" />
+          </div>
+        </div>
+        <div class="box">
+          <div class="box-text">
+            <div class="inf">
+              What's the object-oriented way to become wealthy?
+            </div>
+            <p></p>
+          </div>
+          <div class="icon">
+            <img class="arrow" src="./arrow-down-sign-to-navigate.png" alt="" />
+            <img class="cross" src="./close.png" alt="" />
+          </div>
+        </div>
+        <div class="box">
+          <div class="box-text">
+            <div class="inf">
+              How many tickles does it take to tickle an octopus?
+            </div>
+            <p></p>
+          </div>
+          <div class="icon">
+            <img class="arrow" src="./arrow-down-sign-to-navigate.png" alt="" />
+            <img class="cross" src="./close.png" alt="" />
+          </div>
+        </div>
+        <div class="box">
+          <div class="box-text">
+            <div class="inf">What is: 1 + 1?</div>
+            <p></p>
+          </div>
+          <div class="icon">
+            <img class="arrow" src="./arrow-down-sign-to-navigate.png" alt="" />
+            <img class="cross" src="./close.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const arrows = document.querySelectorAll(".arrow");
+      const crosses = document.querySelectorAll(".cross");
+      const boxes = document.querySelectorAll(".box");
+      const ps = document.querySelectorAll("p");
+      const texts = [
+        "They make up everything",
+        "Nobody knows.",
+        "Inheritence",
+        "Ten-tickles!",
+        "Depends on who are you asking",
+      ];
+      arrows.forEach((arrow, index) => {
+        arrow.addEventListener("click", () => {
+          arrow.classList.add("open", !arrow.classList.contains("open"));
+          crosses[index].classList.add(
+            "open",
+            !crosses[index].classList.contains("open")
+          );
+          boxes[index].classList.add(
+            "open",
+            !boxes[index].classList.contains("open")
+          );
+
+          ps[index].innerText = texts[index];
+        });
+      });
+
+      crosses.forEach((cross, index) => {
+        cross.addEventListener("click", () => {
+          arrows[index].classList.remove(
+            "open",
+            arrows[index].classList.contains("open")
+          );
+          cross.classList.remove("open", cross.classList.contains("open"));
+          boxes[index].classList.remove(
+            "open",
+            boxes[index].classList.remove("open")
+          );
+
+          ps[index].innerText = "";
+        });
+      });
+    </script>
+  </body>
+</html>
