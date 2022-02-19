@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background Slider</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        overflow: hidden;
+
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        background-position: center center;
+        transition: 0.4s;
+      }
+      body::before {
+        position: absolute;
+        content: "";
+        height: 100vh;
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      /* .pic {
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+      } */
+      .slide-container {
+        position: relative;
+        height: 70vh;
+        width: 70vw;
+        box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+        overflow: hidden;
+      }
+      .slide {
+        opacity: 0;
+        position: absolute;
+        height: 100vh;
+        width: 100vw;
+        background-size: cover;
+        background-position: center;
+        top: -15vh;
+        left: -15vw;
+        background-repeat: no-repeat;
+        transition: 0.4s ease;
+      }
+      .slide.slide1.active,
+      .slide.slide2.active,
+      .slide.slide3.active,
+      .slide.slide4.active {
+        opacity: 1;
+      }
+
+      /* .slide1 {
+        background-image: url("https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1261&q=80");
+        opacity: 0;
+      }
+      .slide2 {
+        background-image: url("https://images.unsplash.com/photo-1520607725487-81e65ed08c8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80");
+        opacity: 0;
+      }
+      .slide3 {
+        background-image: url("https://images.unsplash.com/photo-1643712662909-29fe8f02b613?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+        opacity: 0;
+      }
+      .slide4 {
+        background-image: url("https://images.unsplash.com/photo-1643669528728-191536f9bfba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1277&q=80");
+        opacity: 0;
+      } */
+      /* .pic1::after {
+        background-image: url("https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1261&q=80");
+        position: absolute;
+        content: "";
+
+        background-position: center center;
+        background-size: cover;
+        margin: 0 auto;
+      } */
+      /* .pic2 {
+        background-image: url("https://images.unsplash.com/photo-1520607725487-81e65ed08c8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80");
+        display: none;
+      }
+      .pic3 {
+        background-image: url("https://images.unsplash.com/photo-1643712662909-29fe8f02b613?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+        display: none;
+      }
+      .pic4 {
+        background-image: url("https://images.unsplash.com/photo-1643669528728-191536f9bfba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1277&q=80");
+        display: none;
+      }
+      .layer {
+        position: absolute;
+        background-image: url("https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1261&q=80");
+        background-position: center center;
+        height: 500px;
+        width: 700px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      } */
+
+      .next,
+      .prev {
+        z-index: 1;
+        position: fixed;
+        height: 100px;
+        width: 100px;
+        background-color: transparent;
+        top: 45vh;
+        border: 1px solid #fff;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.4s linear;
+      }
+      .next:hover,
+      .prev:hover {
+        background-color: #fff;
+      }
+      .next:hover .fa-solid,
+      .prev:hover .fa-solid {
+        color: black;
+        border-color: #000;
+      }
+      .fa-solid {
+        font-size: 3rem;
+        color: #fff;
+      }
+      .prev {
+        left: calc(15vw / 2);
+      }
+      .next {
+        left: 85vw;
+      }
+    </style>
+  </head>
+  <body
+    style="
+      background-image: url('https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1261&q=80');
+    "
+  >
+    <!-- <div class="layer"></div> -->
+    <div class="slide-container">
+      <div
+        class="slide slide1 active"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1586227740560-8cf2732c1531?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1261&q=80');
+        "
+      ></div>
+      <div
+        class="slide slide2"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1522735338363-cc7313be0ae0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80');
+        "
+      ></div>
+      <div
+        class="slide slide3"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1643712662909-29fe8f02b613?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+        "
+      ></div>
+      <div
+        class="slide slide4"
+        style="
+          background-image: url('https://images.unsplash.com/photo-1643669528728-191536f9bfba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1277&q=80');
+        "
+      ></div>
+      <button class="next"><i class="fa-solid fa-arrow-right"></i></button>
+      <button class="prev"><i class="fa-solid fa-arrow-left"></i></button>
+    </div>
+
+    <script>
+      const slides = document.querySelectorAll(".slide");
+      const nextBtn = document.querySelector(".next");
+      const prevBtn = document.querySelector(".prev");
+      const body = document.querySelector("body");
+      let currentState = 0;
+      nextBtn.addEventListener("click", () => {
+        currentState = currentState + 1 > 3 ? 0 : currentState + 1;
+
+        slides.forEach((slide) => {
+          slide.classList.remove("active");
+        });
+        slides[currentState].classList.add("active");
+        body.style.backgroundImage = slides[currentState].style.backgroundImage;
+      });
+
+      prevBtn.addEventListener("click", () => {
+        currentState = currentState - 1 < 0 ? 3 : currentState - 1;
+
+        slides.forEach((slide) => {
+          slide.classList.remove("active");
+        });
+        slides[currentState].classList.add("active");
+        console.log(slides[currentState].style.backgroundImage);
+        body.style.backgroundImage = slides[currentState].style.backgroundImage;
+      });
+    </script>
+  </body>
+</html>

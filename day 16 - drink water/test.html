@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test</title>
+    <style>
+      body {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .box {
+        height: 300px;
+        width: 300px;
+        background-color: transparent;
+        display: flex;
+      }
+      .box1 {
+        transition: flex 1s linear;
+        flex: 0;
+        background-color: red;
+      }
+      .box2 {
+        flex: 1;
+        background-color: green;
+        transition: flex 1s linear;
+      }
+
+      .box:hover .box1 {
+        flex: 1;
+      }
+      .box:hover .box2 {
+        flex: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="box1"></div>
+      <div class="box2"></div>
+    </div>
+    <button></button>
+  </body>
+</html>

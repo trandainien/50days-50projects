@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drinking Water</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+    :root {
+      --default-value: 12.5%;
+    }
+    * {
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Open Sans", sans-serif;
+      font-family: "Roboto", sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      background-color: #3394e4;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
+    .head {
+      margin-top: 0.5em;
+      font-size: 2.5rem;
+    }
+    .subhead {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 1em;
+    }
+    .glass {
+      background-color: #fff;
+      width: 150px;
+      color: #134fc6;
+      padding: 1em;
+      margin: 0 auto;
+      border: 4px solid #134fc6;
+      margin-bottom: 1.5em;
+      overflow: hidden;
+      transition: background-color 0.1s linear, color 0.1s linear;
+    }
+
+    .water-info {
+      display: flex;
+      position: relative;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background-color: #6ab3f8;
+      font-weight: 700;
+      z-index: 0;
+    }
+    /* .water-info::after {
+      width: 200px;
+      z-index: -1;
+      height: 100%;
+      position: absolute;
+      content: "";
+      background-color: #6ab3f8;
+    } */
+
+    /* .water-info::before {
+      position: absolute;
+      content: "";
+      height: 150px;
+      z-index: -1;
+      width: 200px;
+      background-color: #6ab3f8;
+      bottom: -120px;
+    } */
+    .big {
+      padding: 0;
+      height: 300px;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+
+      /* display: grid;
+      grid-template-rows: 100% 0%; */
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      align-content: center;
+      justify-items: flex-end;
+    }
+    .box {
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      transition: 0.3s ease;
+    }
+
+    .water-info {
+      height: 0;
+      transition: 0.3s ease;
+      width: 300px;
+      overflow: hidden;
+    }
+
+    .big.one {
+      grid-template-rows: calc(100% - var(--default-value)) var(--default-value);
+    }
+
+    .big.two {
+      grid-template-rows:
+        calc(100% - var(--default-value) * 2)
+        calc(var(--default-value) * 2);
+    }
+    .big.three {
+      grid-template-rows: calc(100% - (var(--default-value) * 3)) calc(
+          var(--default-value) * 3
+        );
+    }
+    .big.four {
+      grid-template-rows: calc(100% - (var(--default-value) * 4)) calc(
+          var(--default-value) * 4
+        );
+    }
+    .big.five {
+      grid-template-rows: calc(100% - (var(--default-value) * 5)) calc(
+          var(--default-value) * 5
+        );
+    }
+    .big.six {
+      grid-template-rows: calc(100% - (var(--default-value) * 6)) calc(
+          var(--default-value) * 6
+        );
+    }
+    .big.seven {
+      grid-template-rows: calc(100% - (var(--default-value) * 7)) calc(
+          var(--default-value) * 7
+        );
+    }
+
+    .big.eight {
+      grid-template-rows: 0% 100%;
+    }
+
+    .selection-info {
+      font-size: 1.1rem;
+      font-weight: 300;
+      margin-bottom: 1em;
+    }
+    .small {
+      width: 60px;
+      height: 100px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .glasses {
+      display: grid;
+      grid-template-columns: repeat(4, 70px);
+      justify-content: center;
+    }
+    .glass.small.active {
+      background-color: #6ab3f8;
+      color: #fff;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="head">Drink Water</div>
+      <div class="subhead">Goal: 2 Liters</div>
+      <div class="glass big">
+        <div class="box">
+          <div class="main-text">2L</div>
+          <div class="text">Remained</div>
+        </div>
+
+        <div class="water-info"></div>
+      </div>
+      <div class="selection-info">
+        Select how many glasses of water that you have drank
+      </div>
+      <div class="glasses">
+        <div class="glass small" id="0">
+          <div>250</div>
+          <div>ml</div>
+        </div>
+        <div class="glass small" id="1">
+          <div>250</div>
+          <div>ml</div>
+        </div>
+        <div class="glass small" id="2">
+          <div>250</div>
+          <div>ml</div>
+        </div>
+        <div class="glass small" id="3">
+          <div>250</div>
+          <div>ml</div>
+        </div>
+        <div class="glass small" id="4">
+          <div>250</div>
+          <div>ml</div>
+        </div>
+        <div class="glass small" id="5">
+          <div>250</div>
+          <div>ml</div>
+        </div>
+        <div class="glass small" id="6">
+          <div>250</div>
+          <div>ml</div>
+        </div>
+        <div class="glass small" id="7">
+          <div>250</div>
+          <div>ml</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const glasses = document.querySelectorAll(".glass.small");
+      const waterDisplay = document.querySelector(".water-info");
+      const waterRemain = document.querySelector(".main-text ");
+      const box = document.querySelector(".box");
+      const bigGlass = document.querySelector(".glass.big");
+
+      glasses.forEach((glass) => {
+        glass.addEventListener("click", () => {
+          let id = glass.id;
+
+          if (
+            glass.classList.contains("active") &&
+            !glasses[Number(id) + 1].classList.contains("active")
+          ) {
+            glass.classList.remove("active");
+            id--;
+          }
+
+          for (var i = 0; i < 8; i++) {
+            if (i <= id) {
+              glasses[i].classList.add("active");
+            } else {
+              glasses[i].classList.remove("active");
+            }
+          }
+          id++;
+
+          box.style.height = `${100 - 12.5 * id}%`;
+          waterDisplay.style.height = `${12.5 * id}%`;
+          waterDisplay.innerText = `${12.5 * id}%`;
+          waterRemain.innerText = `${2 - 2 * 0.125 * id}L`;
+          // if (glass.classList.contains("active")) {
+          //   //2 cases
+          //   console.log(id);
+
+          //   id++;
+
+          //   if (glasses[id].classList.contains("active")) {
+          //     while (glasses[id].classList.contains("active")) {
+          //       glasses[id].classList.remove("active");
+          //       id++;
+          //     }
+          //   } else {
+          //     glass.classList.remove("active");
+          //     id--;
+          //   }
+          // } else {
+          //   for (var i = 0; i <= glass.id; i++) {
+          //     glasses[i].classList.add("active");
+          //   }
+          //   id++;
+          // }
+        });
+      });
+    </script>
+  </body>
+</html>

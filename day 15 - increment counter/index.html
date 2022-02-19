@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Increment Counter</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Roboto:wght@100;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Open Sans", sans-serif;
+        font-family: "Roboto", sans-serif;
+      }
+      body {
+        margin: 0;
+        height: 100vh;
+        background-color: #8f44ad;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .box {
+        margin: 0 2em;
+        width: 250px;
+        height: 250px;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .icon,
+      .number,
+      .info {
+        color: #fff;
+      }
+      .icon {
+        margin-bottom: 2em;
+      }
+      .number {
+        margin-bottom: 0em;
+        font-size: 5rem;
+      }
+      .info {
+        font-size: 1.2rem;
+      }
+      .fa-brands {
+        font-size: 5rem;
+      }
+
+      @media only screen and (max-width: 768px) {
+        body {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box" id="twitter">
+      <div class="icon"><i class="fa-brands fa-twitter"></i></div>
+      <div class="number">10000</div>
+      <div class="info">Twitter Followers</div>
+    </div>
+
+    <div class="box" id="youtube">
+      <div class="icon"><i class="fa-brands fa-youtube"></i></div>
+      <div class="number">10000</div>
+      <div class="info">YouTube Subscribers</div>
+    </div>
+
+    <div class="box" id="facebook">
+      <div class="icon"><i class="fa-brands fa-facebook"></i></div>
+      <div class="number">10000</div>
+      <div class="info">Facebook Fans</div>
+    </div>
+    <script>
+      const twitter = document.querySelector("#twitter .number");
+      const facebook = document.querySelector("#facebook .number");
+      const youtube = document.querySelector("#youtube .number");
+
+      function scale(number, inMin, inMax, outMin, outMax) {
+        return (
+          ((number - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
+        );
+      }
+
+      let load = 0;
+      const startInterval = setInterval(() => {
+        load++;
+        if (load === 100) {
+          clearInterval(startInterval);
+        }
+        twitter.innerText = scale(load, 0, 100, 0, 12000);
+        youtube.innerText = scale(load, 0, 100, 0, 5000);
+        facebook.innerText = scale(load, 0, 100, 0, 7500);
+      }, 20);
+    </script>
+  </body>
+</html>

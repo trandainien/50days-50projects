@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie App</title>
+    <style>
+      body {
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      .header {
+        height: 10vh;
+        background-color: #373b69;
+        position: relative;
+      }
+      input {
+        height: 40px;
+        width: 250px;
+        position: absolute;
+        right: 25px;
+        border-radius: 50px;
+        background-color: transparent;
+        border: 1px solid #000;
+        top: 50%;
+        transform: translate(0, -50%);
+        padding: 0.2em 1em;
+        font-size: 1.2rem;
+        color: #fff;
+      }
+      input:focus {
+        outline: none;
+        background-color: #23254b;
+      }
+
+      .movies-display {
+        /* display: grid; */
+
+        display: flex;
+        flex-wrap: wrap;
+        /* grid-template-columns: repeat(auto-fit, minmax(350px, 200px));
+        grid-template-rows: repeat(auto-fit, 500px);
+        grid-column-gap: 1em;
+        grid-row-gap: 1em; */
+        padding: 1em;
+        background-color: #23254b;
+        overflow: hidden;
+        gap: 2em;
+      }
+      .card {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #373b69;
+        width: 300px;
+      }
+      img {
+        width: 100%;
+
+        object-fit: cover;
+      }
+      .info {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5em 1em;
+      }
+      .title {
+        color: #fff;
+        font-size: 1.2rem;
+        margin-right: 1em;
+      }
+      .rate {
+        padding: 0.1em 0.4em;
+        font-size: 1.2rem;
+        border-radius: 10px;
+        background-color: #23254b;
+        height: 30px;
+      }
+      .rate.green {
+        color: lightgreen;
+      }
+      .rate.yellow {
+        color: orange;
+      }
+      .rate.red {
+        color: red;
+      }
+      .overview {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <form action="">
+        <input type="text" class="search" placeholder="search..." />
+      </form>
+    </div>
+    <div class="movies-display"></div>
+  </body>
+  <script>
+    const API_URL =
+      "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=4cd820dde15ad6ae7e3fc7d92fb6d1aa&page=1";
+    const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
+    const SEARCH_API =
+      'https://api.themoviedb.org/3/search/movie?api_key=4cd820dde15ad6ae7e3fc7d92fb6d1aa&query="';
+
+    const form = document.querySelector("form");
+    const search = document.querySelector(".search");
+
+    getMovies(API_URL);
+
+    async function getMovies(url) {
+      const res = await fetch(url);
+      const data = await res.json();
+
+      showMovies(data.results);
+    }
+
+    function showMovies(movies) {
+      const movieDisplay = document.querySelector(".movies-display");
+      movieDisplay.innerHTML = "";
+      movies.forEach((movie) => {
+        console.log(movie);
+        const { title, poster_path, vote_average, overview } = movie;
+
+        const movieEl = document.createElement("div");
+        movieEl.classList.add("card");
+        movieEl.innerHTML = `
+        <img
+          src="${IMG_PATH + poster_path}"
+          alt=""
+        />
+        <div class="info">
+          <div class="title">${title}</div>
+          <div class="rate ${rate(vote_average)}">${vote_average}</div>
+        </div>
+
+        <div class="overview">
+          <div class="title">Overview</div>
+          <p>
+            ${overview}
+          </p>
+        </div>
+        `;
+
+        movieDisplay.appendChild(movieEl);
+      });
+    }
+
+    function rate(vote_average) {
+      if (vote_average > 8) {
+        return "green";
+      } else if (vote_average > 6) {
+        return "yellow";
+      } else return "red";
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const searchTerm = search.value;
+
+      if (searchTerm && searchTerm !== "") {
+        getMovies(SEARCH_API + searchTerm);
+
+        search.value = "";
+      } else {
+        window.location.reload();
+      }
+    });
+  </script>
+</html>

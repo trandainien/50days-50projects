@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;700&family=Open+Sans:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Be Vietnam Pro", sans-serif;
+        font-family: "Open Sans", sans-serif;
+      }
+      
+      .header {
+        height: 10vh;
+        background-color: #373b69;
+        display: flex;
+        justify-content: flex-end;  
+        align-items: center;
+        padding: 1em;
+      }
+      input{
+        background-color: transparent;
+        border-radius: 30px;
+        height: 40px;
+        width: 300px;
+        padding: 0.2em 1em;
+        font-size: 1.2rem;
+        color: #fff;
+        border: 2px solid #000;
+      }
+      .container{
+          display: flex;
+          flex-wrap: wrap;
+          background-color: #23254B;
+          padding: 2em;
+          gap: 2em
+      }
+      .card{
+        border-radius: 20px;
+        box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.7);
+        width: 300px;
+        overflow: hidden;
+        background-color: #373B69;
+        position: relative;
+        cursor: pointer;
+      }
+      .card:hover .overview{
+        bottom: 0;
+      }
+      img{
+          width: 100%;
+      }
+      .info{
+          display: flex;
+          justify-content: space-between;
+          padding: 1em;
+          font-size: 1.2rem;
+      }
+      .title{
+        font-weight: bold;
+        color: #fff;
+        margin-right: 1em;
+      }
+      .rate.green{
+          color: lightgreen;
+      }
+      .rate.orange{
+          color: orange;
+      }
+      .rate.red{
+          color: red;
+      }
+      .rate{
+          height: 40px;
+          background-color: #23254B;
+          border-radius: 15px;
+          padding: .4em .3em;
+          font-weight: bold;
+      }
+
+      .overview{
+        position: absolute;
+        background-color: #fff;
+        padding: 1em;
+        width: 100%;
+        bottom: -500px;
+        transition: bottom 1s ease;
+      }
+      input:focus{
+          outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <form action="">
+        <input class="search" placeholder="search"></input>
+      </form>
+    </div>
+    <div class="container">
+      <div class="card">
+        <div class="img"><img src="https://image.tmdb.org/t/p/w1280/aq4Pwv5Xeuvj6HZKtxyd23e6bE9.jpg" alt=""></div>
+        <div class="info">
+          <div class="title"></div>
+          <div class="rate green"></div>
+        </div>
+        <div class="overview"></div>
+      </div>
+    </div>
+
+    <script>
+        const API_URL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=4cd820dde15ad6ae7e3fc7d92fb6d1aa&page=1";
+        const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
+        const SEARCH_API =  'https://api.themoviedb.org/3/search/movie?api_key=4cd820dde15ad6ae7e3fc7d92fb6d1aa&query="';
+        
+        const container = document.querySelector(".container");
+        const form = document.querySelector("form");
+        const search = document.querySelector('.search');
+
+        async function getMovies(url){
+            const res = await fetch(url);
+            const data = await res.json();
+
+            showMovies(data.results);
+        }
+
+        function rate(vote_average){
+            if (vote_average > 8) return "green";
+            return vote_average > 6 ? "orange" : "red";
+        }
+
+        function showMovies(movies){
+            container.innerHTML ="";
+            movies.forEach(movie =>{
+                const {title, poster_path, vote_average, overview} = movie;
+                const movieEl = document.createElement("div");
+                movieEl.classList.add("card");
+                movieEl.innerHTML =`
+                    <div class="img"><img src="${IMG_PATH + poster_path}" alt=""></div>
+                    <div class="info">
+                    <div class="title">${title}</div>
+                    <div class="rate ${rate(vote_average)}">${vote_average}</div>
+                    </div>
+                    <div class="overview">${overview}</div>
+                `;
+                container.appendChild(movieEl);
+            })
+        }
+
+        form.addEventListener("submit",(e)=>{
+            e.preventDefault();
+            const searchTerm = search.value;
+
+            if (searchTerm && searchTerm != ''){
+                getMovies(SEARCH_API + searchTerm);
+            }else{
+                window.location.reload();
+            }
+            search.value = '';
+        })
+
+        getMovies(API_URL);
+
+    </script>
+  </body>
+</html>
