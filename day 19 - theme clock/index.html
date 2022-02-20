@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theme Clock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;700&family=Open+Sans:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Be Vietnam Pro", sans-serif;
+        font-family: "Open Sans", sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transition: 0.6s ease-out;
+      }
+      .time {
+        font-size: 4rem;
+      }
+      .date {
+        font-size: 1rem;
+        font-weight: 100;
+      }
+      .clock {
+        margin: 1em;
+        width: 300px;
+        height: 300px;
+        position: relative;
+      }
+      body.light-mode {
+        background-color: #fff;
+      }
+      body.dark-mode {
+        background-color: #000;
+      }
+
+      button {
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        border: none;
+        padding: 0.5em;
+        transition: 0.6s ease-out;
+      }
+      span {
+        border-radius: 15px;
+        padding: 0.2em;
+        transition: 0.6s ease-out;
+      }
+      .time {
+        transition: 0.6s ease-out;
+      }
+      .date {
+        transition: 0.6s ease-out;
+      }
+      span {
+        transition: 0.6s ease-out;
+      }
+
+      body.light-mode button {
+        background-color: #000;
+        color: #fff;
+      }
+      body.light-mode .time {
+        color: #000;
+      }
+      body.light-mode .date {
+        color: #000;
+      }
+      body.light-mode span {
+        background-color: #000;
+        color: #fff;
+      }
+      body.dark-mode button {
+        color: #000;
+      }
+      body.dark-mode .time {
+        color: #fff;
+      }
+      body.dark-mode .date {
+        color: #fff;
+      }
+      body.dark-mode span {
+        color: #000;
+        background-color: #fff;
+      }
+
+      .hour,
+      .minute,
+      .second {
+        position: absolute;
+        height: 80px;
+        width: 3px;
+        transform-origin: center bottom;
+        top: 35%;
+        left: 50%;
+      }
+      .second {
+        height: 120px;
+        transform: translate(-50%, -50%) rotate(40deg);
+      }
+      .hour {
+        height: 60px;
+        transform: translate(-50%, 00%) rotate(100deg);
+      }
+      .minute {
+        transform: translate(-10%, -25%) rotate(180deg);
+      }
+      body.dark-mode .hour,
+      body.dark-mode .minute,
+      body.dark-mode .second {
+        background-color: #fff;
+      }
+      body.light-mode .hour,
+      body.light-mode .minute,
+      body.light-mode .second {
+        background-color: #000;
+      }
+      body.dark-mode .second,
+      body.light-mode .second {
+        background-color: red;
+      }
+      .second::after {
+        height: 10px;
+        width: 10px;
+        background-color: red;
+        position: absolute;
+        content: "";
+        top: 100%;
+        left: 100%;
+        border-radius: 50%;
+        transform: translate(-60%, -60%);
+      }
+      .second::before {
+        z-index: 1;
+        height: 5px;
+        width: 5px;
+        transition: 0.6s ease-out;
+        position: absolute;
+        content: "";
+        top: 100%;
+        left: 100%;
+        border-radius: 50%;
+        transform: translate(-70%, -70%);
+      }
+      body.dark-mode .second::before {
+        background-color: rgba(255, 255, 255, 1);
+      }
+      body.light-mode .second::before {
+        background-color: rgba(0, 0, 0, 1);
+      }
+    </style>
+  </head>
+  <body class="dark-mode">
+    <div class="container">
+      <div class="btn"><button>Light Mode</button></div>
+      <div class="clock">
+        <div class="hour" style=""></div>
+        <div class="minute" style=""></div>
+        <div class="second" style=""></div>
+      </div>
+      <div class="time">7:56PM</div>
+      <div class="date">Sunday, FEB <span>20</span></div>
+    </div>
+
+    <script>
+      const body = document.querySelector("body");
+      const btn = document.querySelector("button");
+      const hourNeedle = document.querySelector(".hour");
+      const minuteNeedle = document.querySelector(".minute");
+      const secondNeedle = document.querySelector(".clock .second");
+      const time = document.querySelector(".time");
+      const date = document.querySelector(".date");
+
+      const days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      btn.addEventListener("click", () => {
+        if (body.classList.contains("light-mode")) {
+          body.classList.remove("light-mode");
+          body.classList.add("dark-mode");
+          btn.innerHTML = "Light Mode";
+        } else {
+          body.classList.remove("dark-mode");
+          body.classList.add("light-mode");
+          btn.innerHTML = "Dark Mode";
+        }
+      });
+
+      setInterval(() => {
+        const d = new Date();
+        let hour = d.getHours();
+        let minute = d.getMinutes();
+        let second = d.getSeconds();
+        let day = d.getDay();
+        let dayNumber = d.getDate();
+        let month = d.getMonth();
+        const string = hour > 12 ? "PM" : "AM";
+
+        date.innerHTML = `${days[day]} ${months[month]} <span>${dayNumber}</span>`;
+
+        hour %= 12;
+        hourNeedle.style.transform = `translate(-50%, 0%) rotate(${scale(
+          hour,
+          0,
+          11,
+          0,
+          360
+        )}deg)`;
+
+        minuteNeedle.style.transform = `translate(-10%, -25%) rotate(${scale(
+          minute,
+          0,
+          59,
+          0,
+          360
+        )}deg)`;
+
+        secondNeedle.style.transform = `translate(-50%, -50%) rotate(${scale(
+          second,
+          0,
+          59,
+          0,
+          360
+        )}deg)`;
+
+        time.innerHTML = `${hour}:${minute} ` + string;
+
+        console.log(hour);
+      }, 1000);
+
+      const scale = (number, inMin, inMax, outMin, outMax) => {
+        return (
+          ((number - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
+        );
+      };
+    </script>
+  </body>
+</html>

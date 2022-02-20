@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drag N Drop</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #4682b4;
+      }
+
+      .item {
+        width: 150px;
+        height: 150px;
+        background-color: #fff;
+        border: 3px solid #000;
+        margin: 10px;
+      }
+      .fill {
+        background-image: url("https://source.unsplash.com/random/150x150");
+        cursor: pointer;
+        height: 145px;
+        width: 145px;
+
+        overflow: hidden;
+      }
+      .hold {
+        border: 5px solid #ccc;
+      }
+
+      .hovered {
+        background-color: #333;
+        border-color: #fff;
+        border-style: dashed;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="item">
+      <div class="fill" draggable="true"></div>
+    </div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+
+    <script>
+      const items = [...document.querySelectorAll(".item")];
+      const fill = document.querySelector(".fill");
+
+      fill.addEventListener("dragstart", dragStart);
+      fill.addEventListener("dragend", dragEnd);
+
+      function dragStart() {
+        console.log("dragStart");
+        this.className += " hold";
+        setTimeout(() => {
+          this.style.display = "none";
+        }, 0);
+      }
+      function dragEnd() {
+        console.log("dragEnd");
+        this.classList.remove("hold");
+        this.style.display = "block";
+      }
+      function dragEnter(e) {
+        console.log("dragEnter");
+        e.preventDefault();
+      }
+      function dragOver(e) {
+        console.log("dragOver");
+        e.preventDefault();
+        this.classList.add("hovered");
+      }
+      function dragLeave() {
+        console.log("dragLeave");
+        this.classList.remove("hovered");
+      }
+      function dragDrop() {
+        console.log("dragDrop");
+
+        this.appendChild(fill);
+      }
+      items.forEach((item) => {
+        item.addEventListener("dragover", dragOver);
+        item.addEventListener("dragenter", dragEnter);
+        item.addEventListener("dragleave", dragLeave);
+        item.addEventListener("drop", dragDrop);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button Ripple Effect</title>
+  </head>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      background-color: black;
+      position: relative;
+    }
+    button {
+      padding: 0.8em 1.5em 0.6em;
+      font-size: 1rem;
+      text-transform: uppercase;
+      border-radius: 10px;
+      background-color: rgba(0, 100, 255, 1);
+      color: #fff;
+      border: none;
+    }
+    button:hover {
+      background-color: gray;
+    }
+    .clickedEffect {
+      position: absolute;
+      content: "";
+
+      background-color: white;
+      border-radius: 50%;
+      height: 50px;
+      width: 50px;
+      z-index: 1;
+      opacity: 0;
+      top: -100px;
+      animation: clicked 0.6s ease;
+    }
+
+    @keyframes clicked {
+      from {
+        transform: scale(0);
+        opacity: 1;
+      }
+      to {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+  </style>
+  <body>
+    <button>Click me</button>
+    <div class="clickedEffect"></div>
+    <script>
+      const btn = document.querySelector("button");
+      const clickedEffect = document.querySelector(".clickedEffect");
+      const body = document.querySelector("body");
+      btn.addEventListener("click", (e) => {
+        console.log(e.clientX, e.clientY);
+        const x = e.clientX;
+        const y = e.clientY;
+
+        clicked = document.createElement("div");
+        clicked.classList.add("clickedEffect");
+
+        clicked.style.top = `${y - 25}px`;
+        clicked.style.left = `${x - 25}px`;
+
+        body.appendChild(clicked);
+
+        setTimeout(() => {
+          clicked.remove();
+        }, 600);
+      });
+    </script>
+  </body>
+</html>

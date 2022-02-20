@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drawing App</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        min-height: 100vh;
+      }
+
+      canvas {
+        border: 3px solid #4682b4;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .board {
+      }
+      .bar {
+        background-color: #4682b4;
+      }
+      .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .bar {
+        width: 900px;
+        margin: 0 auto;
+        padding: 1em;
+        display: flex;
+        justify-content: space-between;
+      }
+      .left {
+        display: flex;
+        gap: 2em;
+      }
+      .box {
+        height: 70px;
+        width: 70px;
+        background-color: #fff;
+        font-size: 1.8rem;
+        position: relative;
+        cursor: pointer;
+      }
+      span {
+        position: absolute;
+        top: 42%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      input {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="" height=""> </canvas>
+    <div class="board"></div>
+    <div class="bar">
+      <div class="left">
+        <div class="box minus">-</div>
+        <div class="box size">10</div>
+        <div class="box plus" style="font-size: 3rem"><span>+</span></div>
+        <div class="box"><input type="color" class="color" /></div>
+      </div>
+      <div class="right"><div class="box erase">X</div></div>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      const plus = document.querySelector(".plus");
+      const minus = document.querySelector(".minus");
+      const size = document.querySelector(".size");
+      const erase = document.querySelector(".erase");
+      const input = document.querySelector("input");
+      let isPressed = false;
+      let color = "black";
+      let x;
+      let y;
+
+      canvas.height = "600";
+      canvas.width = "890";
+
+      input.addEventListener("input", (e) => {
+        color = e.target.value;
+      });
+
+      plus.addEventListener("click", () => {
+        size.innerHTML = Number(size.innerHTML) + 5;
+      });
+
+      minus.addEventListener("click", () => {
+        size.innerHTML = Number(size.innerHTML) - 5;
+      });
+
+      erase.addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+
+      canvas.addEventListener("mousedown", (e) => {
+        isPressed = true;
+
+        x = e.offsetX;
+        y = e.offsetY;
+        //console.log(isPressed, x, y);
+      });
+
+      canvas.addEventListener("mouseup", (e) => {
+        isPressed = false;
+
+        x = undefined;
+        y = undefined;
+        //console.log(isPressed, x, y);
+      });
+
+      canvas.addEventListener("mousemove", (e) => {
+        if (isPressed) {
+          const x2 = e.offsetX;
+          const y2 = e.offsetY;
+
+          drawCircle(x2, y2);
+          drawLine(x, y, x2, y2);
+          x = x2;
+          y = y2;
+        }
+      });
+
+      function drawCircle(x, y) {
+        ctx.beginPath();
+        ctx.arc(x, y, Number(size.innerHTML) / 2, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+
+        ctx.fill();
+      }
+
+      function drawLine(x1, y1, x2, y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = Number(size.innerHTML);
+        ctx.stroke();
+      }
+    </script>
+  </body>
+</html>
