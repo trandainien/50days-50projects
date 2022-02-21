@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Placeholder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;700&family=Open+Sans:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Be Vietnam Pro", sans-serif;
+        font-family: "Open Sans", sans-serif;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background-color: #ecf0f1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .card {
+        width: 350px;
+
+        border-radius: 10px;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.7);
+
+        overflow: hidden;
+      }
+      .header {
+      }
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center center;
+        aspect-ratio: 16/9;
+      }
+      .bottom {
+        flex: 1;
+        padding: 2em;
+        display: flex;
+        flex-direction: column;
+      }
+      .box1 {
+        margin-bottom: 1em;
+      }
+      .box1 h1 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 0;
+      }
+      .box1 p {
+        font-size: 1rem;
+        font-weight: thin;
+        margin: 0;
+        color: black;
+      }
+      .box2 {
+        display: flex;
+      }
+
+      .box2 .img img {
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+      }
+      .box2 .img {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .box2 .info {
+        flex: 3;
+        margin-left: 1em;
+      }
+      .box2 h1 {
+        font-weight: bold;
+        margin: 0;
+      }
+      .box2 p {
+        color: black;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <img
+          src="https://images.unsplash.com/photo-1645410585755-2881a2ac1431?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+          alt=""
+        />
+      </div>
+      <div class="bottom">
+        <div class="box1">
+          <h1>Lorem ipsum dolor sit amet consectetur.</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor dicta
+            ullam quam
+          </p>
+        </div>
+        <div class="box2">
+          <div class="img">
+            <img src="https://source.unsplash.com/random/300×300" alt="" />
+          </div>
+          <div class="info">
+            <h1>Dai Nien</h1>
+            <p>Oct 08, 2020</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

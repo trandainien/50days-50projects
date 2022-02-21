@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kinetic Loader</title>
+    <style>
+      body {
+        margin: 0;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-color: #2c3d50;
+      }
+      .arrow-up {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+
+        border-bottom: 5px solid black;
+      }
+      .arrow-down.active {
+        animation: rotate 2s linear infinite;
+      }
+
+      .arrow-right.active {
+        animation: rotate1 2s linear infinite 1s;
+      }
+      .arrow-down {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 60px solid transparent;
+        border-right: 60px solid transparent;
+
+        border-top: 60px solid #ddd;
+        transform-origin: bottom center;
+      }
+
+      .arrow-right {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 60px solid transparent;
+        border-bottom: 60px solid transparent;
+        transform-origin: right center;
+        border-left: 60px solid #ddd;
+      }
+
+      @keyframes rotate {
+        0%,
+        25% {
+          transform: rotate(0deg);
+        }
+
+        50%,
+        75% {
+          transform: rotate(180deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes rotate1 {
+        0% {
+          transform: rotate(0deg);
+        }
+        25%,
+        50% {
+          transform: rotate(180deg);
+        }
+
+        75%,
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .arrow-left {
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+
+        border-right: 10px solid blue;
+      }
+      .square {
+        position: relative;
+        height: 120px;
+        width: 120px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="square">
+      <div class="arrow-down active"></div>
+      <div class="arrow-right active"></div>
+    </div>
+
+    <script></script>
+  </body>
+</html>
