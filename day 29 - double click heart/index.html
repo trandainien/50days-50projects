@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Double Click Heart</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      img {
+        height: 500px;
+        width: 300px;
+        overflow: hidden;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.7);
+      }
+      .image {
+        position: relative;
+        cursor: pointer;
+      }
+      .fa-heart {
+        color: red;
+      }
+      .effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform-origin: center center;
+        opacity: 0;
+        animation: fade-scale 1s ease-in-out;
+        z-index: 1;
+      }
+      .effect i {
+        font-size: 10rem;
+      }
+      @keyframes fade-scale {
+        from {
+          opacity: 1;
+          transform: scale(0);
+        }
+        to {
+          opacity: 0;
+          transform: scale(1.2);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <h1>
+          Double click on the image to <i class="fa-solid fa-heart"></i> it
+        </h1>
+        <p>You like it <span>0</span> times</p>
+      </div>
+      <div class="image">
+        <img
+          src="https://images.unsplash.com/photo-1646064418954-40de69b026d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+          alt=""
+        />
+        <!-- <div class="effect"><i class="fa-solid fa-heart"></i></div> -->
+      </div>
+    </div>
+
+    <script>
+      const effect = document.querySelector(".effect");
+      const span = document.querySelector("span");
+      const img = document.querySelector(".image");
+
+      let clicked = 0;
+      img.addEventListener("click", (e) => {
+        //console.log(e.pageX, e.pageY);
+        clicked++;
+        if (clicked % 2 == 0) {
+          const heart = document.createElement("div");
+          heart.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+          heart.classList.add("effect");
+          var rect = e.target.getBoundingClientRect();
+          console.log(e.pageY, e.pageX, e.offsetY);
+          heart.style.top = `${e.offsetY - 80}px`;
+          heart.style.left = `${e.offsetX - 80}px`;
+          img.appendChild(heart);
+          setTimeout(() => heart.remove(), 1000);
+
+          span.innerText = Number(span.innerText) + 1;
+        }
+      });
+    </script>
+  </body>
+</html>

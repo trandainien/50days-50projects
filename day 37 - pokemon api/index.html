@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemon API</title>
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        text-align: center;
+      }
+      .card {
+        width: 120px;
+        box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        padding: 1em;
+        background-color: #00ffdd;
+        font-size: 1.2rem;
+        margin: 1em;
+      }
+      .image {
+        margin-bottom: 1em;
+        position: relative;
+        background-color: #fff;
+        border-radius: 50%;
+      }
+      img {
+        width: 120px;
+        height: 120px;
+
+        object-fit: contain;
+        object-position: center center;
+      }
+
+      .id {
+        background-color: #eeeeee;
+        width: 50%;
+        margin: 0 auto;
+        padding: 0.3em 0.4em 0.5em;
+        border-radius: 20px;
+        font-size: 1rem;
+      }
+      .name {
+        font-size: 1.3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cards"></div>
+
+    <script>
+      const colors = {
+        fire: "#FDDFDF",
+        grass: "#DEFDE0",
+        electric: "#fcf7de",
+        water: "#def3fd",
+        ground: "#f4e7da",
+        rock: "#d5d5d4",
+        fairy: "#fceaff",
+        poison: "#98d7a5",
+        bug: "#f8d5a3",
+        dragon: "#97b3e6",
+        psychic: "#eaeda1",
+        flying: "#f5f5f5",
+        fighting: "#e6e0D4",
+        normal: "#f5f5f5",
+      };
+
+      const types = Object.keys(colors);
+
+      async function getPokemon() {
+        for (var id = 1; id <= 100; id++) {
+          const url = "https://pokeapi.co/api/v2/pokemon/";
+          const res = await fetch(url + id);
+          const data = await res.json();
+          const cards = document.querySelector(".cards");
+          console.log(data);
+          const newEl = document.createElement("div");
+          newEl.classList.add("card");
+
+          const curTypes = data.types.map((type) => type.type.name);
+          newEl.style.backgroundColor = colors[curTypes[0]];
+
+          console.log(colors[curTypes[0]]);
+
+          newEl.innerHTML = `
+           <div class="image">
+                <img
+                    src=${data.sprites.other.dream_world.front_default}
+                    alt=""
+                />
+            </div>
+            <div class="id">#${id}</div>
+            <div class="name">${data.name}</div>
+            <div class="type">${curTypes[0]}</div>
+          `;
+
+          cards.appendChild(newEl);
+        }
+      }
+      getPokemon();
+    </script>
+  </body>
+</html>

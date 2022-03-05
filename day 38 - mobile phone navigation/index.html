@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobile Phone Navigation</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #b88acb;
+      }
+      .container {
+        width: 350px;
+        height: 600px;
+        border-radius: 20px;
+        border: 2px solid #fff;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 20px 10px 10px 1px rgba(0, 0, 0, 0.7);
+      }
+      .display {
+        height: 550px;
+        overflow: hidden;
+        position: relative;
+      }
+      .nav {
+        display: flex;
+        background-color: #fff;
+        text-align: center;
+        color: #ddd;
+      }
+
+      ul {
+        padding: 0;
+        margin: 1em auto;
+      }
+      li {
+        list-style: none;
+      }
+      i,
+      .desc {
+        transition: color 0.4s ease;
+        cursor: pointer;
+      }
+      ul.active,
+      li:hover i,
+      li:hover .desc {
+        color: #4fd3c4;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      img.active {
+        opacity: 1;
+        transition: opacity 0.4s ease 0.1s;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="display">
+        <img
+          class="active"
+          src="https://images.unsplash.com/photo-1621609764095-b32bbe35cf3a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80"
+          alt=""
+        />
+        <img
+          src="https://images.unsplash.com/photo-1646388022965-2bfa12635f01?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+          alt=""
+        />
+        <img
+          src="https://images.unsplash.com/photo-1646431678859-fbc96c05bb8e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+          alt=""
+        />
+        <img
+          src="https://images.unsplash.com/photo-1622743498314-0f3c317a222e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+          alt=""
+        />
+      </div>
+      <div class="nav">
+        <ul class="active">
+          <li>
+            <i class="fa-solid fa-house"></i>
+            <div class="desc">Home</div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <i class="fa-solid fa-box"></i>
+            <div class="desc">Home</div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <i class="fa-solid fa-book-open"></i>
+            <div class="desc">Home</div>
+          </li>
+        </ul>
+        <ul>
+          <li>
+            <i class="fa-solid fa-users"></i>
+            <div class="desc">Home</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script>
+      const icons = document.querySelectorAll("ul");
+      const imgs = document.querySelectorAll("img");
+      let curIndex = 0;
+      icons.forEach((icon, index) => {
+        icon.addEventListener("click", () => {
+          const i = index;
+
+          imgs[curIndex].classList.remove("active");
+
+          icons[curIndex].classList.remove("active");
+
+          imgs[i].classList.add("active");
+          icons[i].classList.add("active");
+
+          curIndex = i;
+        });
+      });
+    </script>
+  </body>
+</html>

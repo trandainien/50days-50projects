@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes App</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        min-height: 100vh;
+        background-color: #7bdaf3;
+        position: relative;
+      }
+
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        width: 90%;
+        gap: 2em;
+        padding: 6em 2em 1em;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        height: 450px;
+      }
+      .header {
+        background-color: #9fc862;
+        display: flex;
+        justify-content: flex-end;
+        padding: 1em;
+        gap: 2em;
+      }
+      .header i {
+        font-size: 1.2rem;
+        color: #fff;
+        cursor: pointer;
+      }
+      textarea {
+        border: none;
+        height: 100%;
+        padding: 1em;
+        font-size: 1.2rem;
+      }
+      textarea:focus {
+        outline: none;
+      }
+      button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 0.8em 1em 0.5em;
+        font-size: 1rem;
+        background-color: #9fc862;
+        border: none;
+        border-radius: 20px;
+        color: white;
+        cursor: pointer;
+      }
+      button i {
+        margin-right: 1em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="btn"><i class="fa-solid fa-plus"></i>Add Note</button>
+    <div class="cards"></div>
+
+    <script>
+      const btn = document.querySelector(".btn");
+      const cards = document.querySelector(".cards");
+      btn.addEventListener("click", () => {
+        const newCard = document.createElement("div");
+        newCard.classList.add("card");
+        newCard.innerHTML = `
+             <div class="header">
+                <i class="fa-solid fa-square-pen" data-write></i>
+                <i class="fa-solid fa-trash-can" data-delete></i>
+                </div>
+                <textarea name="" id="" cols="30" rows="10"></textarea>
+            `;
+        cards.appendChild(newCard);
+        const writebtn = newCard.querySelector("[data-write]");
+        const delbtn = newCard.querySelector("[data-delete]");
+        const textarea = newCard.querySelector("textarea");
+
+        writebtn.addEventListener("click", () => {
+          if (textarea.hasAttribute("readonly")) {
+            textarea.removeAttribute("readonly");
+            textarea.style.height = "100%";
+            textarea.style.resize = "both";
+          } else {
+            textarea.setAttribute("readonly", "");
+            textarea.style.resize = "none";
+            textarea.style.height = "80%";
+          }
+        });
+
+        delbtn.addEventListener("click", () => {
+          newCard.remove();
+        });
+      });
+    </script>
+  </body>
+</html>

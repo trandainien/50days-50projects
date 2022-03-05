@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Strength Background</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+      }
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+        filter: blur(8px);
+        background-image: url("https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+      }
+      .container {
+        width: 400px;
+        height: 400px;
+        background-color: #fff;
+        padding: 1.5em;
+        font-size: 1.2rem;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .head {
+        padding: 0.2em;
+        margin-bottom: 1em;
+        text-align: center;
+      }
+      .head > .main-head {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      .head > .desc {
+        font-size: 0.8rem;
+        font-weight: 300;
+      }
+
+      .box {
+        margin-bottom: 1em;
+      }
+      input {
+        width: 100%;
+        border-radius: 5px;
+        padding: 0.8em 0.5em;
+        border: 1px solid #ddd;
+      }
+
+      .btn {
+        background-color: #000;
+        color: #fff;
+        border-radius: 10px;
+        border: none;
+        text-align: center;
+        padding: 0.6em 0;
+        margin-top: 1em;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background" data-background></div>
+    <div class="container">
+      <div class="head">
+        <div class="main-head">Image Password Strength</div>
+        <div class="desc">Change the password to see the effect</div>
+      </div>
+      <div class="box email">
+        <div class="title">Email</div>
+        <input type="email" placeholder="Enter Email" />
+      </div>
+      <div class="box password">
+        <div class="title">Password</div>
+        <input type="password" placeholder="Enter Password" data-password />
+      </div>
+      <button class="btn">Submit</button>
+    </div>
+
+    <script>
+      const password = document.querySelector("[data-password]");
+      const background = document.querySelector("[data-background]");
+
+      password.addEventListener("input", (e) => {
+        const strength = e.target.value.length;
+
+        background.style.filter = `blur(${8 - strength * 0.25}px)`;
+      });
+    </script>
+  </body>
+</html>

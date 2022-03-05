@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Good, Cheap, Fast</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .box {
+        display: flex;
+        margin: 0.8em 0;
+      }
+      .switch {
+        background-color: #ddd;
+        height: 50px;
+        width: 100px;
+        position: relative;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .switch .off {
+        position: absolute;
+        background-color: #fff;
+        height: 45px;
+        width: 45px;
+        top: 2.5px;
+        left: 2.5px;
+        border-radius: 50%;
+        animation: scaleOff 0.3s linear forwards;
+      }
+      .switch.active .off {
+        animation: scaleOn 0.3s linear forwards;
+      }
+      @keyframes scaleOn {
+        0% {
+          transform: translateX(0px) scale(1);
+        }
+        50% {
+          transform: translateX(25px) scale(1.2);
+        }
+        100% {
+          transform: translateX(50px) scale(1);
+        }
+      }
+      @keyframes scaleOff {
+        0% {
+          transform: translateX(50px) scale(1);
+        }
+        50% {
+          transform: translateX(25px) scale(1.2);
+        }
+        100% {
+          transform: translateX(0px) scale(1);
+        }
+      }
+
+      .switch.active {
+        background-color: #b8fff9;
+      }
+
+      .box .desc {
+        display: flex;
+        align-items: center;
+        margin-left: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>How do you want your project to be?</h1>
+      <div class="box">
+        <div class="switch"><div class="off"></div></div>
+        <div class="desc">Good</div>
+      </div>
+      <div class="box">
+        <div class="switch"><div class="off"></div></div>
+        <div class="desc">Cheap</div>
+      </div>
+      <div class="box">
+        <div class="switch"><div class="off"></div></div>
+        <div class="desc">Fast</div>
+      </div>
+    </div>
+
+    <script>
+      const btns = document.querySelectorAll(".switch");
+      btns.forEach((btn, index) => {
+        btn.addEventListener("click", (e) => {
+          const i = index;
+          console.log(i);
+          if (e.target.classList.contains("off"))
+            target = e.target.parentElement;
+          else target = e.target;
+
+          target.classList.toggle("active");
+          //console.log(target);
+          switch (i) {
+            case 0:
+              if (
+                btns[1].classList.contains("active") &&
+                btns[2].classList.contains("active")
+              )
+                btns[2].classList.toggle("active");
+              break;
+            case 1:
+              if (
+                btns[0].classList.contains("active") &&
+                btns[2].classList.contains("active")
+              )
+                btns[0].classList.toggle("active");
+              break;
+            case 2:
+              if (
+                btns[0].classList.contains("active") &&
+                btns[1].classList.contains("active")
+              )
+                btns[1].classList.toggle("active");
+              //console.log(btns[1]);
+              break;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

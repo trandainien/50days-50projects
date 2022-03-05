@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hover Board</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #111111;
+        overflow: hidden;
+      }
+      .container {
+        display: inline-flex;
+        flex-wrap: wrap;
+        width: 400px;
+      }
+
+      .box {
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 2px 3px 0px rgba(255, 255, 255, 0.5);
+        margin: 5px;
+        transition: background-color 0.8s linear;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+
+    <script>
+      const container = document.querySelector(".container");
+      for (var i = 0; i < 299; i++) {
+        const newEl = document.createElement("div");
+        newEl.classList.add("box");
+        newEl.addEventListener("mouseover", () => {
+          let randomNumber1 = Math.floor(Math.random() * 256);
+          let randomNumber2 = Math.floor(Math.random() * 256);
+          let randomNumber3 = Math.floor(Math.random() * 256);
+          let randomNumber4 = Math.floor(Math.random() * 256);
+          newEl.style.backgroundColor = `rgba(${randomNumber1},${randomNumber2},${randomNumber3},${randomNumber4})`;
+        });
+        newEl.addEventListener("mouseout", () => {
+          setTimeout(() => {
+            newEl.style.backgroundColor = `rgba(0, 0, 0, 0.5)`;
+          }, 1000);
+          set;
+        });
+        container.appendChild(newEl);
+      }
+    </script>
+  </body>
+</html>

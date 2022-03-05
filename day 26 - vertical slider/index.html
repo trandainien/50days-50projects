@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Vertical Slider</title>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        height: 100vh;
+        width: 100vw;
+        position: relative;
+        overflow: hidden;
+      }
+      .container {
+        position: relative;
+      }
+      .left {
+        position: absolute;
+        width: 35%;
+        top: 0;
+        left: 0;
+        transition: top 0.6s ease-in-out;
+      }
+      .right {
+        position: absolute;
+        width: 65%;
+        left: 35%;
+        top: 0;
+        transition: transform 0.6s ease-in-out;
+      }
+      .slide {
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+      }
+      .box {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .box > h1 {
+        padding: 0;
+        margin: 0;
+      }
+      .box > p {
+        padding: 0;
+        margin: 0;
+      }
+      .box1 {
+        background-color: #9adcff;
+      }
+      .box2 {
+        background-color: #fff89a;
+      }
+      .box3 {
+        background-color: #ffb2a6;
+      }
+      .box4 {
+        background-color: #ff8aae;
+      }
+      .slide1 {
+        background-image: url("https://images.unsplash.com/photo-1645743705820-adf8356be3c8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+      }
+      .slide2 {
+        background-image: url("https://images.unsplash.com/photo-1645742858422-6f57c73ae877?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+      }
+      .slide3 {
+        background-image: url("https://images.unsplash.com/photo-1645386449324-ada7e5b4ee6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1144&q=80");
+      }
+      .slide4 {
+        background-image: url("https://images.unsplash.com/photo-1645764992327-589b28206219?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+      }
+      button {
+        position: absolute;
+        top: 50vh;
+        transform: translateY(-50%);
+        left: 35%;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        padding: 1em;
+        background-color: transparent;
+        cursor: pointer;
+        transition: 0.4s ease;
+      }
+      .up {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+      .down {
+        transform: translateX(-100%) translateY(50%);
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+      }
+
+      .fa-solid {
+        font-size: 3rem;
+        color: rgba(255, 255, 255, 0.5);
+        transition: 0.4s ease;
+      }
+      button:hover {
+        border: 2px solid rgba(255, 255, 255, 1);
+      }
+      button:hover .fa-solid {
+        color: rgba(255, 255, 255, 1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        <div class="box box1">
+          <h1>1111111</h1>
+          <p>11111111111111111</p>
+        </div>
+
+        <div class="box box2">
+          <h1>2222222</h1>
+          <p>2222222222222222</p>
+        </div>
+        <div class="box box3">
+          <h1>3333333</h1>
+          <p>333333333333333</p>
+        </div>
+        <div class="box box4">
+          <h1>444444</h1>
+          <p>444444444444444</p>
+        </div>
+      </div>
+      <div class="right">
+        <div class="slide slide1"></div>
+        <div class="slide slide2"></div>
+        <div class="slide slide3"></div>
+        <div class="slide slide4"></div>
+      </div>
+
+      <button class="btn up"><i class="fa-solid fa-arrow-up"></i></button>
+      <button class="btn down"><i class="fa-solid fa-arrow-down"></i></button>
+    </div>
+
+    <script>
+      const slides = document.querySelectorAll(".slide");
+      const boxes = document.querySelectorAll(".box");
+      const left = document.querySelector(".left");
+      const right = document.querySelector(".right");
+      const upBtn = document.querySelector(".up");
+      const downBtn = document.querySelector(".down");
+      const body = document.querySelector("body");
+
+      left.style.top = `${-(slides.length - 1) * 100}vh`;
+      let curIndex = 0;
+
+      upBtn.addEventListener("click", () => {
+        const screenHeight = body.clientHeight;
+        console.log(screenHeight);
+        curIndex++;
+        if (curIndex >= slides.length) curIndex = 0;
+        right.style.transform = `translateY(${-(curIndex * screenHeight)}px)`;
+        left.style.top = `${-(slides.length - (curIndex + 1)) * 100}vh`;
+      });
+
+      downBtn.addEventListener("click", () => {
+        const screenHeight = body.clientHeight;
+        console.log(screenHeight);
+        curIndex--;
+        if (curIndex <= -4) curIndex = 0;
+        right.style.transform = `translateY(${curIndex * screenHeight}px)`;
+        left.style.top = `${-(slides.length + (curIndex - 1)) * 100}vh`;
+      });
+    </script>
+  </body>
+</html>

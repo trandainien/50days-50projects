@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animated Countdown</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        text-align: center;
+      }
+      .countdown {
+        width: 200px;
+        height: 100px;
+        transition: transform 0.3s ease-in-out;
+        position: relative;
+        overflow: hidden;
+      }
+      span {
+        font-size: 3rem;
+        transform-origin: bottom center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 100px;
+        opacity: 1s;
+        transform: translate(-50%, -50%) rotate(120deg);
+      }
+      span.active {
+        opacity: 1;
+        animation: rotate ease 0.6s forwards;
+      }
+
+      span.in {
+        animation: in ease-in-out 0.5s;
+      }
+      span.out {
+        animation: out ease-in-out 0.5s;
+      }
+
+      @keyframes in {
+        from {
+          transform: translate(-50%, -50%) rotate(120deg);
+        }
+
+        50% {
+          transform: translate(-50%, -50%) rotate(-20deg);
+        }
+
+        70% {
+          transform: translate(-50%, -50%) rotate(20deg);
+        }
+
+        to {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+      }
+      @keyframes out {
+        from {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        to {
+          transform: translate(-50%, -50%) rotate(-120deg);
+        }
+      }
+
+      @keyframes rotate {
+        from {
+          transform: translate(-50%, -50%) rotate(120deg);
+        }
+        to {
+          transform: translate(-50%, -50%) rotate(-120deg);
+        }
+      }
+      .box {
+        transition: transform 0.3s ease-in-out;
+        font-size: 3rem;
+      }
+      button {
+        font-size: 2rem;
+        padding: 0.5em;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+      }
+      .display {
+        transform: scale(0);
+        font-size: 3rem;
+        transition: transform 0.3s ease-in-out;
+        position: absolute;
+      }
+      .display.active {
+        transform: scale(1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="countdown">
+        <span class="">3</span>
+        <span class="">2</span>
+        <span class="">1</span>
+      </div>
+      <div class="display">Get ready</div>
+      <div class="box">
+        <div>Go</div>
+        <button>Replay</button>
+      </div>
+    </div>
+
+    <script>
+      let spans = document.querySelectorAll("span");
+      const btn = document.querySelector("button");
+      const box = document.querySelector(".box");
+      const display = document.querySelector(".display");
+      const countdown = document.querySelector(".countdown");
+
+      btn.addEventListener("click", () => {
+        spans.forEach((span) => {
+          span.style.animationName = "none";
+
+          requestAnimationFrame(() => {
+            span.style.animationName = "";
+          });
+        });
+
+        box.style.transform = `scale(0)`;
+        display.classList.add("active");
+
+        spans = document.querySelectorAll("span");
+        spans[0].classList.add("in");
+
+        spans.forEach((span, index) => {
+          span.addEventListener("animationend", ({ animationName }) => {
+            if (animationName === "in") {
+              span.classList.remove("in");
+              span.classList.add("out");
+              console.log(index);
+            } else {
+              span.classList.remove("out");
+              if (span.nextElementSibling)
+                span.nextElementSibling.classList.add("in");
+            }
+          });
+        });
+
+        setTimeout(() => {
+          box.style.transform = `scale(1)`;
+          display.classList.remove("active");
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>

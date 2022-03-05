@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toast Notification</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body {
+      height: 100vh;
+      background-color: #9adcff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .card,
+    button {
+      background-color: #fff;
+      padding: 1em;
+      font-size: 1.2rem;
+      color: #9adcff;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.5);
+    }
+    .active {
+      transform: scale(0.9);
+    }
+    .cards {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      display: flex;
+      flex-direction: column;
+
+      align-items: end;
+    }
+    .card {
+      margin: 0.5em 0;
+    }
+    .card.red {
+      color: red;
+    }
+    .card.orange {
+      color: orange;
+    }
+    .card.blue {
+      color: blue;
+    }
+  </style>
+  <body>
+    <button>Show Notification</button>
+
+    <div class="cards"></div>
+
+    <script>
+      const btn = document.querySelector("button");
+      const body = document.querySelector(".cards");
+
+      btn.addEventListener("click", () => {
+        const newEl = document.createElement("div");
+        newEl.classList.add("card");
+        newEl.innerText = "message";
+
+        const randomNumber = Math.floor(Math.random() * 3) + 1;
+
+        switch (randomNumber) {
+          case 1:
+            newEl.classList.add("red");
+            newEl.innerText += " one";
+            break;
+          case 2:
+            newEl.classList.add("orange");
+            newEl.innerText += " two";
+            break;
+          case 3:
+            newEl.classList.add("blue");
+            newEl.innerText += " three";
+            break;
+        }
+        console.log(randomNumber);
+        body.appendChild(newEl);
+
+        setTimeout(() => {
+          newEl.remove();
+        }, 3000);
+
+        btn.classList.add("active");
+        setTimeout(() => {
+          btn.classList.remove("active");
+        }, 50);
+      });
+    </script>
+  </body>
+</html>

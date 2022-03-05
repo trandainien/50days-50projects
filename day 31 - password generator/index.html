@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #3b3b98;
+      }
+      .container {
+        background-color: #23235b;
+        padding: 1em;
+        color: #fff;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.5);
+        text-align: center;
+      }
+      .container h1 {
+        margin-top: 0;
+        margin-bottom: 0.5em;
+      }
+      .show {
+        background-color: #151537;
+        padding: 0.4em;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.8em;
+      }
+      .show .text {
+        padding: 0.2em;
+      }
+      .show .copy {
+        width: 30px;
+        cursor: pointer;
+      }
+      .show i {
+      }
+      .show .fa-solid {
+        width: 100%;
+        font-size: 1.2rem;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1em;
+      }
+      input.number {
+        width: 60px;
+        padding: 0.4em;
+      }
+      input.number:focus {
+        outline: none;
+      }
+      .box h3 {
+        font-weight: 300;
+      }
+      .generate {
+        background-color: #3b3b98;
+        color: #fff;
+        padding: 0.6em;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Password Generator</h1>
+      <div class="show">
+        <div class="text"></div>
+        <button class="copy"><i class="fa-solid fa-clipboard"></i></button>
+      </div>
+      <div class="box">
+        <h3>Password Length</h3>
+        <input type="number" class="number" min="4" max="20" value="4" />
+      </div>
+      <div class="box">
+        <h3>Include uppercase letter</h3>
+        <input type="checkbox" data-upper checked="true" />
+      </div>
+      <div class="box">
+        <h3>Include lowercase letter</h3>
+        <input type="checkbox" data-lower checked="true" />
+      </div>
+      <div class="box">
+        <h3>Include numbers</h3>
+        <input type="checkbox" data-number checked="true" />
+      </div>
+      <div class="box">
+        <h3>Include symbols</h3>
+        <input type="checkbox" data-symbol checked="true" />
+      </div>
+      <button class="generate">Generate Password</button>
+    </div>
+
+    <script>
+      const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+      const lowerChars = "abcdefghijklmnopqrstuvwxyz".split("");
+      const symbols = "!!@#$%^&*(){}[]=<>/,.";
+      const btn = document.querySelector(".generate");
+      const showText = document.querySelector(".text");
+      const input = document.querySelector(".number");
+      const checkUpperCase = document.querySelector("[data-upper]");
+      const checkLowerCase = document.querySelector("[data-lower]");
+      const checkSymbols = document.querySelector("[data-symbol]");
+      const checkNumber = document.querySelector("[data-number]");
+      const copybtn = document.querySelector(".copy");
+
+      copybtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(showText.innerText).then(function () {
+          alert("copied");
+        });
+      });
+
+      function getRandomUpperLetter() {
+        let randomNumber = Math.floor(Math.random() * 26);
+        return upperChars[randomNumber];
+      }
+
+      function getRandowLowerLetter() {
+        let randomNumber = Math.floor(Math.random() * 26);
+        return lowerChars[randomNumber];
+      }
+
+      function getRandomSymbol() {
+        return symbols[Math.floor(Math.random() * 21)];
+      }
+      function getRandomNumber() {
+        return String(Math.floor(Math.random() * 10));
+      }
+
+      btn.addEventListener("click", () => {
+        const numbers = input.value;
+        const number = checkNumber.checked;
+        const symbol = checkSymbols.checked;
+        const lowerletter = checkLowerCase.checked;
+        const upperletter = checkUpperCase.checked;
+
+        let pass = "";
+        //console.log(numbers, showText.innerText, pass);
+        let count = 0;
+        if (!number && !symbol && !lowerletter && !upperletter) {
+          showText.innerText = "";
+          return;
+        }
+        while (pass.length != numbers) {
+          switch (count) {
+            case 0:
+              if (lowerletter) pass += getRandowLowerLetter();
+              count++;
+              break;
+            case 1:
+              if (upperletter) pass += getRandomUpperLetter();
+              count++;
+              break;
+            case 2:
+              if (number) pass += getRandomNumber();
+              count++;
+              break;
+            case 3:
+              if (symbol) pass += getRandomSymbol();
+              count++;
+              break;
+            default:
+              count = 0;
+          }
+        }
+        //console.log(count);
+        showText.innerText = pass;
+      });
+    </script>
+  </body>
+</html>
