@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D Boxes Background</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 500px;
+        height: 500px;
+        justify-content: space-around;
+        position: relative;
+        transition: 0.6s ease;
+      }
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .box {
+        background-color: red;
+        background-repeat: no-repeat;
+        background-size: 500px 500px;
+        height: 125px;
+        width: 125px;
+        position: relative;
+        background-image: url("i\ mean\ i\ just\ wanted\ to\ be\ sure.gif");
+      }
+      @keyframes rotate {
+        from {
+          transform: rotateZ(0deg);
+        }
+        to {
+          transform: rotateZ(360deg);
+        }
+      }
+      .container.big .box {
+        animation: rotate 0.6s ease forwards;
+      }
+      .container.big {
+        width: 600px;
+        height: 600px;
+      }
+      /* .container.big .box {
+        transform: rotateZ(360deg);
+      } */
+
+      .box::after,
+      .box::before {
+        content: "";
+        position: absolute;
+        width: 15px;
+        height: 100%;
+
+        right: -15px;
+        top: 8px;
+        transform: skewY(45deg);
+        background-color: #caf0f8;
+      }
+      .box::after {
+        transform: skewX(45deg) skewY(0);
+        width: 100%;
+        height: 15px;
+        bottom: -15px;
+        left: 7px;
+        top: initial;
+        right: 0;
+        background-color: #00b4d8;
+      }
+
+      button {
+        position: fixed;
+        bottom: 10px;
+        padding: 0.2em 2em;
+        border: none;
+        font-size: 1.2rem;
+        box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.7);
+      }
+      button.clicked {
+        bottom: 8px;
+        box-shadow: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container big">
+      <div class="box" style="background-position: 0px 0px"></div>
+      <div class="box" style="background-position: -125px 0px"></div>
+      <div class="box" style="background-position: -250px 0px"></div>
+      <div class="box" style="background-position: -375px 0px"></div>
+      <div class="box" style="background-position: 0px -125px"></div>
+      <div class="box" style="background-position: -125px -125px"></div>
+      <div class="box" style="background-position: -250px -125px"></div>
+      <div class="box" style="background-position: -375px -125px"></div>
+      <div class="box" style="background-position: 0px -250px"></div>
+      <div class="box" style="background-position: -125px -250px"></div>
+      <div class="box" style="background-position: -250px -250px"></div>
+      <div class="box" style="background-position: -375px -250px"></div>
+      <div class="box" style="background-position: 0px -375px"></div>
+      <div class="box" style="background-position: -125px -375px"></div>
+      <div class="box" style="background-position: -250px -375px"></div>
+      <div class="box" style="background-position: -375px -375px"></div>
+      <button>Magic</button>
+    </div>
+
+    <script>
+      const btn = document.querySelector("button");
+      const container = document.querySelector(".container");
+      btn.addEventListener("click", () => {
+        container.classList.toggle("big");
+
+        btn.classList.add("clicked");
+        setTimeout(() => {
+          btn.classList.remove("clicked");
+        }, 100);
+      });
+    </script>
+  </body>
+</html>
