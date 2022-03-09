@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify Account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        border: 2px solid #000;
+        border-radius: 10px;
+        padding: 1em;
+        font-size: 1.2rem;
+        text-align: center;
+        margin: 1em;
+      }
+      .head {
+        margin-bottom: 1em;
+      }
+      .head > .title {
+        margin-bottom: 1em;
+        font-weight: 600;
+      }
+      .head > desc {
+        font-weight: 300;
+      }
+      .boxes {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 800px;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 1.5em;
+      }
+      .box {
+        padding: 0.5em;
+        font-size: 3rem;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        width: 100px;
+        text-align: center;
+        box-shadow: none;
+      }
+      .footer {
+        border-radius: 10px;
+        padding: 0.5em;
+        font-weight: 300;
+        color: #ddd;
+        background-color: grey;
+      }
+      input {
+        width: 100%;
+        height: 100%;
+      }
+      .box.active {
+        border: 3px solid #c1f4c5;
+        box-shadow: 4px 4px 5px 0 rgba(0, 0, 0, 0.6);
+      }
+      input:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="head">
+        <div class="title">Verify Your Account</div>
+        <div class="desc">
+          We emailed you the six digit code to cool_guy@email.com<br />
+          Enter the code below to confirm your email address.
+        </div>
+      </div>
+      <div class="boxes">
+        <input class="box" type="text" placeholder="0" />
+        <input class="box" type="text" placeholder="0" />
+        <input class="box" type="text" placeholder="0" />
+        <input class="box" type="text" placeholder="0" />
+        <input class="box" type="text" placeholder="0" />
+        <input class="box" type="text" placeholder="0" />
+      </div>
+      <div class="footer">
+        This is design only. We didn't actually send you an email as we
+        <br />don't have your email, right?
+      </div>
+    </div>
+
+    <script>
+      const boxes = document.querySelectorAll(".box");
+
+      boxes.forEach((box, index) => {
+        box.addEventListener("input", (e) => {
+          if (e.target.value.length > 1) {
+            box.value = box.value[1];
+          }
+
+          const typing = Number(e.target.value);
+
+          if (!isNaN(e.target.value) && e.target.value !== "") {
+            if (index + 1 < 6) {
+              boxes[index + 1].focus();
+            }
+            boxes[index].classList.add("active");
+          } else {
+            if (e.target.value === "") {
+              if (index - 1 < 0) {
+              } else {
+                boxes[index - 1].focus();
+              }
+              boxes[index].classList.remove("active");
+            } else box.value = "";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testimonials Boxes</title>
+
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.7);
+        border-radius: 20px;
+        padding: 3em;
+        background-color: #ffbde6;
+        max-width: 600px;
+        align-items: center;
+        position: relative;
+      }
+      .comment {
+        color: #fff;
+        font-size: 1.2rem;
+        margin-bottom: 1em;
+      }
+      .user {
+        display: flex;
+      }
+      .left > img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .left {
+        margin-right: 1em;
+      }
+      .right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .right > .name {
+        font-size: 1.2rem;
+        color: #fff;
+      }
+      .right > .job {
+        font-size: 0.8rem;
+        color: #fff;
+      }
+
+      .progress-bar {
+        height: 5px;
+        width: 0%;
+        position: absolute;
+        left: 50px;
+        top: 30px;
+        background-color: #fff;
+        margin-bottom: 1em;
+        transition: width 0.1s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="progress-bar"></div>
+      <div class="comment">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut optio
+        aperiam rem doloremque! Tempore facilis quaerat suscipit quo iusto,
+        optio asperiores praesentium nam deleniti quidem corporis eaque,
+        consequatur dolore perferendis.
+      </div>
+      <div class="user">
+        <div class="left">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            alt=""
+          />
+        </div>
+        <div class="right">
+          <div class="name">Tran Dai Nien</div>
+          <div class="job">Web developer</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let bar = document.querySelector(".progress-bar");
+      const container = document.querySelector("body");
+      let data = [];
+      let index = 0;
+      function display({ name, avatar, message, designation }) {
+        container.innerHTML = "";
+
+        const newEl = document.createElement("div");
+        newEl.classList.add("container");
+        newEl.innerHTML = `
+               <div class="progress-bar"></div>
+                <div class="comment">
+                  ${message}
+                </div>
+                <div class="user">
+                  <div class="left">
+                    <img
+                      src="${avatar}"
+                      alt=""
+                    />
+                  </div>
+                  <div class="right">
+                    <div class="name">${name}</div>
+                    <div class="job">${designation}</div>
+                  </div>
+                </div>
+              `;
+
+        container.appendChild(newEl);
+
+        play();
+      }
+
+      async function getAPI() {
+        const url = "https://testimonialapi.toolcarton.com/api";
+        const res = await fetch(url);
+        data = await res.json();
+        console.log(data);
+
+        play();
+      }
+
+      function play() {
+        let percent = 0;
+
+        const timer = setInterval(() => {
+          percent++;
+
+          if (percent >= 85) {
+            clearInterval(timer);
+            index++;
+            if (index >= 10) index = 0;
+            display(data[index]);
+
+            bar = document.querySelector(".progress-bar");
+            return;
+          }
+
+          bar.style.width = `${percent}%`;
+        }, 50);
+      }
+
+      getAPI();
+    </script>
+  </body>
+</html>

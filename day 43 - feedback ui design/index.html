@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback UI Design</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        padding: 1em;
+        box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.7);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+      }
+      .title {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+      .boxes {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 400px;
+        margin: 1em;
+      }
+      .box {
+        margin: 1em;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border-radius: 20px;
+        transition: all 0.4s ease;
+        cursor: pointer;
+      }
+      .box:hover,
+      .box.clicked {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.7);
+      }
+      .fa-solid {
+        font-size: 4rem;
+        transition: all 0.4s ease;
+      }
+      .box:hover .fa-face-rolling-eyes,
+      .box.clicked .fa-face-rolling-eyes {
+        color: #9adcff;
+      }
+      .box:hover .fa-face-smile-beam,
+      .box.clicked .fa-face-smile-beam {
+        color: #fff89a;
+      }
+      .box:hover .fa-face-angry,
+      .box.clicked .fa-face-angry {
+        color: #ff1818;
+      }
+      .btn {
+        border-radius: 20px;
+        color: #fff;
+        background-color: #000;
+        padding: 0.5em 1em;
+        margin: 0 auto;
+        border: none;
+        cursor: pointer;
+        transition: 0.4s ease;
+      }
+      .btn:hover {
+        transform: scale(1.2);
+      }
+
+      .display {
+        text-align: center;
+        display: none;
+      }
+      .display.active {
+        display: block;
+      }
+      .display .fa-solid {
+        font-size: 2rem;
+        color: red;
+        margin-bottom: 0.2em;
+      }
+      .display .thanks {
+        margin-bottom: 0.6em;
+      }
+      .mid {
+        font-size: 1.5rem;
+        margin-bottom: 0.6em;
+      }
+      .desc {
+        font-size: 1rem;
+      }
+      .rate.active {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="rate">
+        <div class="title">
+          How satisfied are you with our <br />customer support performance?
+        </div>
+        <div class="boxes">
+          <div class="box">
+            <i class="fa-solid fa-face-angry"></i>
+            <div class="desc">Unhappy</div>
+          </div>
+          <div class="box">
+            <i class="fa-solid fa-face-rolling-eyes"></i>
+            <div class="desc">Neutral</div>
+          </div>
+          <div class="box">
+            <i class="fa-solid fa-face-smile-beam"></i>
+            <div class="desc">Happy</div>
+          </div>
+          <button class="btn">Send Review</button>
+        </div>
+      </div>
+
+      <div class="display">
+        <div class="thanks">
+          <i class="fa-solid fa-heart"></i>
+          <div class="mes">Thank You</div>
+        </div>
+        <div class="mid">Feedback: love</div>
+        <div class="desc">
+          We'll use your feedback to improve our <br />customer support
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const btn = document.querySelector("button");
+      const icons = document.querySelectorAll(".box");
+      const display = document.querySelector(".display");
+      const rate = document.querySelector(".rate");
+      const mid = document.querySelector(".mid");
+      icons.forEach((icon) => {
+        icon.addEventListener("click", (e) => {
+          const El = e.target.parentElement;
+          icons.forEach((icon) => {
+            icon.classList.remove("clicked");
+          });
+          El.classList.add("clicked");
+        });
+      });
+
+      btn.addEventListener("click", () => {
+        rate.classList.toggle("active");
+        icons.forEach((icon) => {
+          if (icon.classList.contains("clicked")) {
+            mid.innerText =
+              "Feedback: " + icon.querySelector(".desc").innerText;
+          }
+        });
+
+        display.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>

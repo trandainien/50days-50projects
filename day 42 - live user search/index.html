@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live User Filter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Poppins", sans-serif;
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        border-radius: 10px;
+        box-shadow: 6px 8px 5px 0 rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+      .head {
+        padding: 1em;
+        background-color: #3e57db;
+        color: #fff;
+      }
+      .head > .title {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+      .head > .desc {
+        font-size: 0.8rem;
+        margin-bottom: 1em;
+      }
+      .head > input {
+        padding: 0.5em 0.5em 0.4em;
+        font-size: 0.8rem;
+        border: none;
+        border-radius: 20px;
+        color: #fff;
+        background-color: #2b3c99;
+        width: 100%;
+      }
+      .head > input:focus {
+        outline: none;
+      }
+      .users {
+        display: flex;
+        flex-direction: column;
+        height: 270px;
+        overflow-y: auto;
+      }
+      .user {
+        display: flex;
+        border-bottom: 1px solid #ddd;
+        padding: 0.5em;
+        justify-content: center;
+        align-items: center;
+      }
+      .right {
+        flex: 1;
+      }
+
+      .right .name {
+        font-weight: 600;
+        font-size: 1.2rem;
+      }
+      .right .from {
+        font-weight: 300;
+        font-size: 0.8rem;
+      }
+      .image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0.8em;
+      }
+      .image > img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="head">
+        <div class="title">Live User Filter</div>
+        <div class="desc">Search by name and/or location</div>
+        <input type="text" placeholder="Search" />
+      </div>
+      <div class="users"></div>
+    </div>
+
+    <script>
+      const input = document.querySelector("input");
+      const users = document.querySelector(".users");
+      const imgs = [
+        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
+        "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
+        "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
+        "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        "https://images.unsplash.com/flagged/photo-1573740144655-bbb6e88fb18a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80",
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "https://images.unsplash.com/photo-1614436163996-25cee5f54290?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=442&q=80",
+        "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      ];
+      let names = [];
+      let streets = [];
+      let cities = [];
+      let data = {};
+
+      input.addEventListener("input", (e) => {
+        users.innerHTML = "";
+        names.forEach((name, i) => {
+          if (
+            name.toLowerCase().includes(e.target.value.toLowerCase()) == true ||
+            streets[i].toLowerCase().includes(e.target.value.toLowerCase()) ==
+              true ||
+            cities[i].toLowerCase().includes(e.target.value.toLowerCase()) ==
+              true
+          ) {
+            displayUser(data[i], i);
+          }
+        });
+      });
+
+      async function getUsers() {
+        const url = "https://jsonplaceholder.typicode.com/users";
+
+        const res = await fetch(url);
+        data = await res.json();
+
+        data.forEach((user, index) => {
+          const {
+            name,
+            address: { city, street },
+          } = user;
+
+          names.push(name);
+          streets.push(street);
+          cities.push(city);
+
+          displayUser(user, index);
+        });
+      }
+
+      function displayUser(user, index) {
+        const {
+          name,
+          address: { city, street },
+        } = user;
+
+        const newEl = document.createElement("div");
+        newEl.classList.add("user");
+        newEl.innerHTML = `
+          <div class="left">
+            <div class="image">
+              <img
+                src=${imgs[index]}
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="right">
+            <div class="name">${name}</div>
+            <div class="from">${city}, ${street}</div>
+          </div>
+          `;
+
+        users.appendChild(newEl);
+      }
+
+      getUsers();
+    </script>
+  </body>
+</html>

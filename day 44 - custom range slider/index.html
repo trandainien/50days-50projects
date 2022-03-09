@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Range Slider</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background-color: #ddd;
+      }
+      .title {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .range {
+        cursor: pointer;
+        width: 500px;
+        -webkit-appearance: none;
+        background-color: transparent;
+      }
+
+      .range::-webkit-slider-runnable-track {
+        background: purple;
+        border-radius: 10px;
+        cursor: pointer;
+        width: 100%;
+        height: 15px;
+      }
+      .range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 24px;
+        width: 24px;
+        background-color: #fff;
+        border: 2px solid purple;
+        border-radius: 50%;
+        margin-top: -4px;
+      }
+      .desc {
+        position: absolute;
+        top: 280px;
+        transform: translateX(0px);
+        padding: 0.5em 2em;
+        background-color: #fff;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="title">Custom Range Slider</div>
+    <div class="desc">50</div>
+    <input type="range" class="range" min="0" max="100" />
+
+    <script>
+      const input = document.querySelector(".range");
+      const desc = document.querySelector(".desc");
+
+      const rect = desc.getBoundingClientRect();
+      console.log(rect.left, rect.top);
+      input.addEventListener("input", (e) => {
+        const change = e.target.value;
+        console.log(change);
+        desc.innerText = change;
+        desc.style.transform = `translateX(${scale(
+          change,
+          0,
+          100,
+          -240,
+          240
+        )}px)`;
+      });
+
+      function scale(number, inMin, inMax, outMin, outMax) {
+        return (
+          ((number - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin
+        );
+      }
+    </script>
+  </body>
+</html>

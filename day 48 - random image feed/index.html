@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Image Feed</title>
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        max-width: 1200px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .item {
+        margin: 1em;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.7);
+      }
+      .item > img {
+        height: 150px;
+        width: 100px;
+        object-fit: cover;
+        object-position: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+
+    <script>
+      let imgs = [];
+      const key = "_czgnBfgwj4xovGxLZhhrJ5jOfuDvExh9raosxNstkA";
+      const api = `https://api.unsplash.com/photos/random?count=20&client_id=${key}`;
+
+      const container = document.querySelector(".container");
+
+      async function getAPI() {
+        const res = await fetch(api);
+        const data = await res.json();
+        console.log(data);
+
+        console.log(data[0].urls);
+        let result = data.reduce((urls, oneData) => {
+          return [...urls, oneData.urls];
+        }, []);
+
+        imgs = result.reduce((imgUrl, imgProps) => {
+          return [...imgUrl, imgProps.regular];
+        }, []);
+        console.log(imgs);
+
+        imgs.forEach((img) => {
+          const newEl = document.createElement("div");
+          newEl.classList.add("item");
+          newEl.innerHTML = `
+            <img src="${img}" alt="">
+          `;
+          container.appendChild(newEl);
+        });
+      }
+      getAPI();
+    </script>
+  </body>
+</html>

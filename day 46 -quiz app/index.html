@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+        border-radius: 20px;
+        overflow: hidden;
+        width: 600px;
+        text-align: center;
+      }
+      .body {
+        padding: 2em 2em 1em;
+      }
+      .body > .title {
+        text-align: center;
+        font-size: 1.5rem;
+        margin-bottom: 1em;
+      }
+      li {
+        list-style: none;
+        margin-left: 2em;
+        margin-bottom: 1em;
+        display: flex;
+        align-items: center;
+        text-align: center;
+      }
+      .submit {
+        width: 100%;
+      }
+      button {
+        width: 100%;
+        border: none;
+        padding: 0.7em;
+        font-size: 1.2rem;
+        background-color: #c5d8a4;
+        cursor: pointer;
+      }
+      input {
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        margin-right: 1em;
+      }
+      .res {
+        padding: 1em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="change">
+        <div class="body">
+          <div class="title">Which language runs in a web browser?</div>
+          <div class="ul">
+            <li><input type="checkbox" /> Java</li>
+            <li><input type="checkbox" /> C</li>
+            <li><input type="checkbox" /> Python</li>
+            <li><input type="checkbox" /> Javascript</li>
+          </div>
+        </div>
+      </div>
+      <div class="submit">
+        <button>Submit</button>
+      </div>
+    </div>
+
+    <script>
+      let inputs = document.querySelectorAll("input");
+      const btn = document.querySelector("button");
+      const container = document.querySelector(".change");
+      let check;
+      const ans1 = 3;
+      const ans2 = 1;
+      const ans3 = 0;
+      const ans4 = 1;
+      let overall = 0;
+      const questions = [
+        "What does CSS stand for?",
+        "What does HTML stand for?",
+        "What year was JavaScript launched?",
+      ];
+      const answers = [
+        [
+          "Central Style Sheets",
+          "Cascading Style Sheets",
+          "Cascading Simple Sheets",
+          "Cars SUVs Sailboats",
+        ],
+        [
+          "Hypertext Markup Language",
+          "Hypertext Markdown Language",
+          " Hyperloop Machine Language",
+          "Helicopters Terminals Motorboats Lamborginis",
+        ],
+        ["1996", "1995", "1994", "none of the above"],
+      ];
+      let i = 0;
+
+      inputs.forEach((input, index) => {
+        input.addEventListener("click", (e) => {
+          inputs.forEach((input) => {
+            input.checked = false;
+          });
+          input.checked = true;
+          check = index;
+        });
+      });
+
+      btn.addEventListener("click", (e) => {
+        if (i >= 4) {
+          console.log("reload");
+          location.reload();
+          return;
+        }
+
+        i++;
+        switch (i) {
+          case 1:
+            if (check == ans1) overall++;
+            console.log(check);
+            if (check != undefined) {
+              display();
+              check = undefined;
+            } else i--;
+            break;
+          case 2:
+            if (check == ans2) overall++;
+            console.log(2);
+            console.log(check);
+            if (check != undefined) {
+              display();
+              check = undefined;
+            } else i--;
+            break;
+          case 3:
+            if (check == ans3) overall++;
+            console.log(3);
+            if (check != undefined) {
+              display();
+              check = undefined;
+            } else i--;
+            break;
+          default:
+            if (check == ans4) overall++;
+            console.log(4);
+            const newEl = document.createElement("div");
+            newEl.classList.add("res");
+            newEl.innerHTML = `You answered ${overall}/4 questions correctly`;
+            container.innerHTML = "";
+            container.appendChild(newEl);
+            btn.innerText = "Reload";
+        }
+      });
+
+      function display() {
+        const newEl = document.createElement("div");
+        newEl.innerHTML = `
+             <div class="body">
+        <div class="title">${questions[i - 1]}</div>
+        <div class="ul">
+          <li><input type="checkbox" /> ${answers[i - 1][0]}</li>
+          <li><input type="checkbox" /> ${answers[i - 1][1]}</li>
+          <li><input type="checkbox" /> ${answers[i - 1][2]}</li>
+          <li><input type="checkbox" /> ${answers[i - 1][3]}</li>
+        </div>
+      </div>
+        `;
+
+        container.innerHTML = "";
+        container.appendChild(newEl);
+
+        inputs = document.querySelectorAll("input");
+        inputs.forEach((input, index) => {
+          input.addEventListener("click", (e) => {
+            inputs.forEach((input) => {
+              input.checked = false;
+            });
+            input.checked = true;
+            check = index;
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <style>
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #ddd;
+        text-align: center;
+      }
+
+      .title {
+        font-size: 8rem;
+        color: #dbc7ee;
+      }
+      input {
+        padding: 0.5em 1em;
+        font-size: 1.2rem;
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.7);
+        border: none;
+        border-radius: 10px;
+        margin: 2em 2em 0;
+      }
+      input:focus {
+        outline: none;
+      }
+      .todos {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+      }
+      .todo {
+        width: 100%;
+        padding: 1em;
+        background-color: #fff;
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.7);
+        position: relative;
+        cursor: pointer;
+      }
+      .note {
+        margin-top: 2em;
+      }
+      .text {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+      }
+      .todo.active .text::before {
+        position: absolute;
+        content: "";
+        height: 3px;
+        width: 100%;
+        top: 59%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #42c2ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="title">todos</div>
+    <form action="">
+      <input type="text" placeholder="Enter your todo" />
+    </form>
+
+    <div class="todos"></div>
+
+    <div class="note">
+      <div>Left Click to toggle completed</div>
+      <div>Right click to delete todo</div>
+    </div>
+
+    <script>
+      const form = document.querySelector("form");
+      const todos = document.querySelector(".todos");
+      const input = document.querySelector("input");
+
+      const data = JSON.parse(localStorage.getItem("items"));
+
+      console.log(data);
+
+      data.forEach((item) => {
+        const newEl = document.createElement("div");
+        newEl.classList.add("todo");
+        if (item.completed) newEl.classList.add("active");
+        newEl.innerHTML = ` <div class="text">${item.text}</div>`;
+        todos.appendChild(newEl);
+        newEl.addEventListener("click", () => {
+          console.log("click");
+          newEl.classList.toggle("active");
+          updateLocalStorage();
+        });
+
+        newEl.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+          console.log("contextmenu");
+          newEl.remove();
+          updateLocalStorage();
+        });
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const newEl = document.createElement("div");
+        newEl.classList.add("todo");
+        newEl.innerHTML = ` <div class="text">${input.value}</div>`;
+        todos.appendChild(newEl);
+        updateLocalStorage();
+        input.value = "";
+
+        newEl.addEventListener("click", () => {
+          console.log("click");
+          newEl.classList.toggle("active");
+          updateLocalStorage();
+        });
+
+        newEl.addEventListener("contextmenu", (e) => {
+          e.preventDefault();
+          console.log("contextmenu");
+          newEl.remove();
+          updateLocalStorage();
+        });
+      });
+
+      function updateLocalStorage() {
+        //input value , true or false
+        textsEl = document.querySelectorAll(".text");
+        console.log(textsEl[0].parentElement);
+        const texts = [];
+
+        textsEl.forEach((textEl) => {
+          texts.push({
+            text: textEl.innerText,
+            completed: textEl.parentElement.classList.contains("active"),
+          });
+        });
+
+        localStorage.setItem("items", JSON.stringify(texts));
+      }
+    </script>
+  </body>
+</html>
